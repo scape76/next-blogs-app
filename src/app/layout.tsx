@@ -1,6 +1,7 @@
 import "./globals.css";
 import { getCurrentUser } from "@/lib/session";
 
+import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header";
 
 export const metadata = {
@@ -18,8 +19,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header user={user} />
-        {children}
+        {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem> */}
+          <Header user={user} />
+          {children}
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );
