@@ -5,6 +5,8 @@ import {
   Trash2,
   Loader2,
   MoreVertical,
+  FileUp,
+  FileDown,
   type Icon as LucideIcon,
 } from "lucide-react";
 
@@ -17,4 +19,6 @@ export const Icons = {
   trash: Trash2,
   spinner: Loader2,
   chevronLeft: ChevronLeft,
+  publish: FileUp,
+  archive: FileDown
 };

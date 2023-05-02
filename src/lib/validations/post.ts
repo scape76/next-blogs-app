@@ -5,3 +5,9 @@ export const postPatchSchema = z.object({
 
   content: z.any().optional(),
 });
+
+export const postCreateSchema = z.object({
+  title: z.string(),
+
+  content: z.any().optional(),
+});

@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
+import { getCurrentUser } from "@/lib/session";
 
 import hero from "../../public/hero.svg";
-import next from "../../public/next.svg";
 import TechnologyBox from "@/components/technology-box";
-import { textChangeRangeIsUnchanged } from "typescript";
+import Header from "@/components/header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -77,8 +77,11 @@ const technologies = [
 ];
 
 export default async function Home() {
+  const user = await getCurrentUser();
+
   return (
     <>
+      <Header user={user} />
       <section className="container max-w-3xl mx-auto">
         <Image src={hero} alt="Hero image" width={250} priority></Image>
         <div>

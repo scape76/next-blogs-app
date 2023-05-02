@@ -4,10 +4,10 @@ import { formatDate } from "@/lib/utils";
 
 import Link from "next/link";
 import { PostOperations } from "@/components/post-operations";
-import PostDeleteButton from "./post-delete-button";
+import PostDeleteButton from "./post-manage-icons";
 
 interface PostItem {
-  post: Pick<Post, "id" | "title" | "createdAt">;
+  post: Pick<Post, "id" | "title" | "createdAt" | "published">;
 }
 
 const PostItem: FC<PostItem> = ({ post }) => {
@@ -22,7 +22,7 @@ const PostItem: FC<PostItem> = ({ post }) => {
         </span>
       </div>
       {/* <PostOperations post={{ id: post.id, title: post.title }} /> */}
-      <PostDeleteButton id={post.id} />
+      <PostDeleteButton id={post.id} published={post.published}/>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export async function getSession() {
-  return await getServerSession( authOptions);
+  return await getServerSession(authOptions);
 }
 
 export async function getCurrentUser() {

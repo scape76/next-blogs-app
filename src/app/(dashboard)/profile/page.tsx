@@ -22,6 +22,7 @@ const getPostsByUserId = async (userId: User["id"]) => {
 const page = async ({}) => {
   const user = await getCurrentUser();
 
+
   if (!user) {
     redirect(authOptions?.pages?.signIn || "/login");
   }
@@ -49,6 +50,7 @@ const page = async ({}) => {
               id: post.id,
               title: post.title,
               createdAt: post.createdAt,
+              published: post.published
             }}
           />
         ))}

@@ -5,14 +5,17 @@ import EditorJS from "@editorjs/editorjs";
 import { Post } from "@prisma/client";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
+// import { generateReactHelpers } from "@uploadthing/react";
+// import type { OurFileRouter } from "@/app/api/uploadthing/core";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postPatchSchema } from "@/lib/validations/post";
 import TextareaAutosize from "react-textarea-autosize";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import axios from "axios";
+
+// const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 
 type FormData = z.infer<typeof postPatchSchema>;
 
@@ -35,6 +38,8 @@ const PostEditor: React.FC<PostEditor> = ({ post }) => {
   const ref = React.useRef<EditorJS>();
 
   const router = useRouter();
+
+  // const { startUpload } = useUploadThing("imageUploader");
 
   const initializeEditor = React.useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default;
@@ -134,7 +139,7 @@ const PostEditor: React.FC<PostEditor> = ({ post }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="max-w-5xl mx-auto flex items-center justify-between">
+      <div className="max-w-5xl mx-auto mt-4 flex items-center justify-between">
         <div>
           <Button variant="ghost" onClick={() => router.back()}>
             Go back
@@ -154,12 +159,12 @@ const PostEditor: React.FC<PostEditor> = ({ post }) => {
           defaultValue={post.title}
           placeholder="Post title"
           className="w-full resize-none appearance-none overflow-hidden text-5xl font-bold focus:outline-none"
-          {...register("title", { minLength: 3 })}
+          {...register("title", { minLength: 3, maxLength: 128 })}
           aria-invalid={errors.title ? "true" : "false"}
         />
-        {errors.title?.type === "too_small" && (
+        {errors.title && (
           <p role="alert" className="text-xs text-red-600">
-            Minimal title length is 3 symbols
+            {errors.title?.message as string}
           </p>
         )}
         <div id="editor" className="min-h-[500px]" />

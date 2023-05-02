@@ -2,7 +2,6 @@
 
 import { FC, useState } from "react";
 import Link from "next/link";
-import type { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import type { User } from "next-auth";
 
@@ -15,6 +14,7 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({ user }) => {
   const [isLoading, setIsLoading] = useState(false);
+
 
   const handleLogout = () => {
     setIsLoading(true);

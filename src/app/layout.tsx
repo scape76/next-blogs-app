@@ -20,7 +20,6 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem> */}
-          <Header user={user} />
           {children}
         {/* </ThemeProvider> */}
       </body>
