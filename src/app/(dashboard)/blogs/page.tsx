@@ -25,7 +25,7 @@ const page = async ({}) => {
 
   return (
     <div className="container max-w-4xl pt-2 lg:pt-4">
-      <h1 className="text-2xl text-gray-700">Blogs</h1>
+      <h1 className="text-2xl">Blogs</h1>
       <hr className="border-slate-200 my-4" />
       {publishedPosts.length ? (
         <div className="container max-w-5xl my-6">
@@ -45,7 +45,7 @@ const page = async ({}) => {
           </div>
         </div>
       ) : (
-        <p className="text-lg text-gray-600">No posts found</p>
+        <p className="text-lg">No posts found</p>
       )}
     </div>
   );

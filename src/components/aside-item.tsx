@@ -1,17 +1,22 @@
 import { FC } from "react";
 import type { Icon } from "@/components/icons";
 
+import Link from "next/link";
+
 interface AsideItemProps {
   title: string;
   Icon: Icon;
+  path: string;
 }
 
-const AsideItem: FC<AsideItemProps> = ({ title, Icon }) => {
+const AsideItem: FC<AsideItemProps> = ({ title, Icon, path }) => {
   return (
-    <div className="flex items-center p-2 gap-x-2 text-sm rounded cursor-pointer hover:bg-slate-100">
-      <Icon className="w-4 h-4" />
-      <span className="text-sm text-gray-700">{title}</span>
-    </div>
+    <Link href={path}>
+      <div className="flex items-center p-2 gap-x-2 text-sm rounded cursor-pointer hover:bg-accent">
+        <Icon className="w-4 h-4" />
+        <span className="text-sm">{title}</span>
+      </div>
+    </Link>
   );
 };
 

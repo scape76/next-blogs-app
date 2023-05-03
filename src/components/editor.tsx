@@ -144,7 +144,7 @@ const PostEditor: React.FC<PostEditor> = ({ post }) => {
           <Button variant="ghost" onClick={() => router.back()}>
             Go back
           </Button>
-          <span className="ml-4 text-gray-500">
+          <span className="ml-4 ">
             {post.published ? "Published" : "Draft"}
           </span>
         </div>
@@ -152,7 +152,7 @@ const PostEditor: React.FC<PostEditor> = ({ post }) => {
           Save
         </Button>
       </div>
-      <div className="prose prose-stone mx-auto w-[800px]">
+      <div className="prose prose-stone mx-auto px-4 pt-2 md:px-0">
         <TextareaAutosize
           autoFocus
           id="title"

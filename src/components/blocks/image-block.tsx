@@ -29,9 +29,7 @@ const ImageBlock: React.FC<ImageBlockProps> = ({ data }) => {
       )}
       {/* <img src={data.file.url} alt={data.caption || 'image'} /> */}
       {data.caption && (
-        <div className="w-full p-2 border border-gray-400 text-gray-500">
-          {data.caption}
-        </div>
+        <div className="w-full p-2 border border-gray-400 ">{data.caption}</div>
       )}
     </div>
   );

@@ -11,7 +11,7 @@ const layout: React.FC<layoutProps> = ({ children }) => {
   return (
     <article className="container relative max-w-3xl py-2">
       <Link
-        className="absolute top-8 left-[-100px] hidden items-center justify-center text-sm font-medium text-slate-600 hover:text-slate-900 xl:inline-flex"
+        className="absolute top-8 left-[-100px] hidden items-center justify-center text-sm font-medium xl:inline-flex"
         href="/blogs"
       >
         <Icons.chevronLeft className="mr-2 h-4 w-4" />

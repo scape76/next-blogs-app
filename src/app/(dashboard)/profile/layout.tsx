@@ -25,7 +25,12 @@ const layout: FC<layoutProps> = ({ children }) => {
     <div className="w-full container grid md:grid-cols-[200px_1fr] max-w-5xl gap-x-4 ">
       <aside className="flex flex-col gap-y-2">
         {asideProps.map((el) => (
-          <AsideItem title={el.title} Icon={el.Icon} key={el.title} />
+          <AsideItem
+            path={el.path}
+            title={el.title}
+            Icon={el.Icon}
+            key={el.title}
+          />
         ))}
       </aside>
       {children}

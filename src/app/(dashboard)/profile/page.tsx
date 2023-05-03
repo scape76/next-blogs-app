@@ -8,6 +8,7 @@ import { sortByDate } from "@/lib/utils";
 
 import CreatePostButton from "@/components/create-post-button";
 import PostItem from "@/components/post-item";
+import DashboardHeader from "@/components/dashboard-header";
 
 const getPostsByUserId = async (userId: User["id"]) => {
   const posts = await db.post.findMany({
@@ -22,7 +23,6 @@ const getPostsByUserId = async (userId: User["id"]) => {
 const page = async ({}) => {
   const user = await getCurrentUser();
 
-
   if (!user) {
     redirect(authOptions?.pages?.signIn || "/login");
   }
@@ -33,15 +33,9 @@ const page = async ({}) => {
 
   return (
     <div className="w-full">
-      <div className="flex items-center justify-between mt-2 mb-4">
-        <div className="flex flex-col gap-y-2 ">
-          <h1 className="font-bold text-xl">Posts</h1>
-          <span className="text-md text-gray-600">
-            Create and manage your posts
-          </span>
-        </div>
+      <DashboardHeader title="Posts" text="Create and manage your posts">
         <CreatePostButton />
-      </div>
+      </DashboardHeader>
       <div className="w-full">
         {posts.map((post) => (
           <PostItem
@@ -50,7 +44,7 @@ const page = async ({}) => {
               id: post.id,
               title: post.title,
               createdAt: post.createdAt,
-              published: post.published
+              published: post.published,
             }}
           />
         ))}

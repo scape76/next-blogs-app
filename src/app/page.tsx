@@ -62,15 +62,26 @@ const technologies = [
         className="h-12 w-12"
       >
         <defs>
-          <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%" className="rotate-45">
-            <stop offset="25%" style={{stopColor: "#5dc6e5;stop-opacity:1"}} />
+          <linearGradient
+            id="grad1"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%"
+            className="rotate-45"
+          >
+            <stop
+              offset="25%"
+              style={{ stopColor: "#5dc6e5;stop-opacity:1" }}
+            />
             {/* <stop offset="50%" style={{stopColor:"#4299e1;stop-opacity:1"}} /> */}
-            <stop offset="100%" style={{stopColor:"#865ed7;stop-opacity:1"}} />
+            <stop
+              offset="100%"
+              style={{ stopColor: "#865ed7;stop-opacity:1" }}
+            />
           </linearGradient>
         </defs>
-        <path
-          d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
-        ></path>
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
       </svg>
     ),
   },
@@ -85,17 +96,17 @@ export default async function Home() {
       <section className="container max-w-3xl mx-auto">
         <Image src={hero} alt="Hero image" width={250} priority></Image>
         <div>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-[1.1] text-gray-800">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-[1.1]">
             Hello there,
           </h1>
-          <p className="font-semibold text-gray-600 text-xl mt-2">
+          <p className="font-semibold text-xl mt-2">
             Here you can create and share your posts.
           </p>
         </div>
       </section>
       <hr className="border-slate-200 my-12" />
       <section className="container max-w-3xl mx-auto">
-        <h1 className="text-2xl text-center sm:text-4xl md:text-5xl font-bold leading-[1.1] text-gray-800">
+        <h1 className="text-2xl text-center sm:text-4xl md:text-5xl font-bold leading-[1.1]">
           Technologies I&apos;ve used
         </h1>
         <div className="flex flex-wrap items-center justify-center gap-6 my-8">

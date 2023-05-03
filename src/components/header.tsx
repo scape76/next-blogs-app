@@ -15,7 +15,6 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ user }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-
   const handleLogout = () => {
     setIsLoading(true);
     try {
@@ -30,7 +29,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
   return (
     <div className="max-w-5xl w-full mx-auto border-b-1 border-gray-400 p-4">
       <div className="flex items-center justify-between">
-        <div className="flex gap-x-4 text-gray-700">
+        <div className="flex gap-x-4 ">
           <div>Logo</div>
           <Link className="hover-underline-animation" href="/blogs">
             Blogs

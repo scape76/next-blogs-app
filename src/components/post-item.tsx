@@ -17,12 +17,12 @@ const PostItem: FC<PostItem> = ({ post }) => {
         <Link href={`/editor/${post.id}`}>
           <h1 className="font-semibold text-md">{post.title}</h1>
         </Link>
-        <span className="text-xs text-gray-500">
+        <span className="text-xs ">
           {formatDate(post.createdAt?.toDateString())}
         </span>
       </div>
       {/* <PostOperations post={{ id: post.id, title: post.title }} /> */}
-      <PostDeleteButton id={post.id} published={post.published}/>
+      <PostDeleteButton id={post.id} published={post.published} />
     </div>
   );
 };

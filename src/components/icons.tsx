@@ -7,6 +7,8 @@ import {
   MoreVertical,
   FileUp,
   FileDown,
+  Moon,
+  Sun,
   type Icon as LucideIcon,
 } from "lucide-react";
 
@@ -20,5 +22,7 @@ export const Icons = {
   spinner: Loader2,
   chevronLeft: ChevronLeft,
   publish: FileUp,
-  archive: FileDown
+  archive: FileDown,
+  moon: Moon,
+  sun: Sun,
 };

@@ -24,7 +24,7 @@ const Page: FC<pageProps> = ({}) => {
   return (
     <div className="flex min-w-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full flex flex-col items-center max-w-md space-y-8">
-        <h1 className="text-xl text-gray-700">Login using gmail: </h1>
+        <h1 className="text-xl">Login using gmail: </h1>
         <Button onClick={loginWithGoogle}>
           {" "}
           {isLoading ? null : (

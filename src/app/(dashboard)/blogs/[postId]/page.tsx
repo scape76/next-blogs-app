@@ -38,7 +38,7 @@ const page = async ({ params }: pageProps) => {
             <BlockItem key={block.id} block={block} />
           ))
         ) : (
-          <p className="text-lg text-gray-400">Nothing to show here...</p>
+          <p className="text-lg">Nothing to show here...</p>
         )}
       </div>
     </div>

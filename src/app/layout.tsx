@@ -1,8 +1,7 @@
 import "./globals.css";
 import { getCurrentUser } from "@/lib/session";
 
-import { ThemeProvider } from "@/components/theme-provider";
-import Header from "@/components/header";
+import Providers from "@/components/providers";
 
 export const metadata = {
   title: "Create Next App",
@@ -17,11 +16,9 @@ export default async function RootLayout({
   const user = await getCurrentUser();
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem> */}
-          {children}
-        {/* </ThemeProvider> */}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
