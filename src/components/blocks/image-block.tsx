@@ -9,15 +9,30 @@ interface ImageBlockProps {
     caption?: string;
     stretched: boolean;
     withBorded: boolean;
-    withBackgroud: boolean;
+    withBackground: boolean;
   };
 }
 
 const ImageBlock: React.FC<ImageBlockProps> = ({ data }) => {
   return (
-    <div className="max-w-[650px]">
-      <img src={data.file.url} alt={data.caption || 'image'} />
-      {data.caption && <div className="w-full p-2 border border-gray-400 text-gray-500">{data.caption}</div>}
+    <div>
+      {data.withBackground ? (
+        <div className="image-tool__image bg-[#cdd1e0] p-[15px]">
+          <img
+            src={data.file.url}
+            alt={data.caption || "image"}
+            className="mx-auto max-w-[60%]"
+          />
+        </div>
+      ) : (
+        <img src={data.file.url} alt={data.caption || "image"} />
+      )}
+      {/* <img src={data.file.url} alt={data.caption || 'image'} /> */}
+      {data.caption && (
+        <div className="w-full p-2 border border-gray-400 text-gray-500">
+          {data.caption}
+        </div>
+      )}
     </div>
   );
 };
