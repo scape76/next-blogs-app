@@ -9,6 +9,7 @@ import {
   FileDown,
   Moon,
   Sun,
+  Laptop,
   type Icon as LucideIcon,
 } from "lucide-react";
 
@@ -25,4 +26,5 @@ export const Icons = {
   archive: FileDown,
   moon: Moon,
   sun: Sun,
+  laptop: Laptop,
 };

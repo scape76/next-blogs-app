@@ -94,17 +94,17 @@ export default async function Home() {
     <>
       <Header user={user} />
       <section className="container max-w-3xl mx-auto">
-        <Image src={hero} alt="Hero image" width={250} priority></Image>
+        <Image src={hero} alt="Hero image" width={250} priority className="bg-white rounded"></Image>
         <div>
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-[1.1]">
             Hello there,
           </h1>
-          <p className="font-semibold text-xl mt-2">
+          <p className="font-semibold text-xl text-muted-foreground mt-2">
             Here you can create and share your posts.
           </p>
         </div>
       </section>
-      <hr className="border-slate-200 my-12" />
+      <hr className="border-accent my-12" />
       <section className="container max-w-3xl mx-auto">
         <h1 className="text-2xl text-center sm:text-4xl md:text-5xl font-bold leading-[1.1]">
           Technologies I&apos;ve used

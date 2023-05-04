@@ -12,7 +12,7 @@ const TechnologyBox: FC<TechnologyBoxProps> = ({
   content,
 }) => {
   return (
-    <div className="relative overflow-hidden flex-grow max-w-[300px] rounded-lg border border-slate-200 bg-white p-2 shadow-2xl">
+    <div className="relative overflow-hidden flex-grow max-w-[300px] rounded-lg border border-accent bg-foreground p-2 shadow-2xl">
       <div className="flex flex-col gap-y-2 p-6 rounded">
         {children}
         <h2 className="text-bold text-xl ">{title}</h2>
