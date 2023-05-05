@@ -13,7 +13,7 @@ const Page: FC<pageProps> = ({}) => {
   const loginWithGoogle = () => {
     setIsLoading(true);
     try {
-      signIn("google", { callbackUrl: "/" });
+      signIn("google");
     } catch (err) {
       console.log(err);
     } finally {
