@@ -13,43 +13,40 @@ interface PostManageButtons {
 }
 
 async function deletePost(postId: Post["id"]) {
-  const res = await axios.delete(`/api/posts/${postId}`);
-
-  if (res.statusText !== "OK") {
-    console.log("something went wrong");
+  try {
+    await axios.delete(`/api/posts/${postId}`);
+    return true;
+  } catch (err) {
+    console.log(err);
     return false;
   }
-
-  return true;
 }
 
 async function publishPost(postId: Post["id"]) {
-  const res = await axios.patch(`/api/posts/${postId}/publish`);
-
-  if (res.statusText !== "OK") {
-    console.log("something went wrong");
+  try {
+    await axios.patch(`/api/posts/${postId}/publish`);
+    return true;
+  } catch (err) {
+    console.log(err);
     return false;
   }
-
-  return true;
 }
 
 async function archivePost(postId: Post["id"]) {
-  const res = await axios.patch(`/api/posts/${postId}/archive`);
-
-  if (res.statusText !== "OK") {
-    console.log("something went wrong");
+  try {
+    await axios.patch(`/api/posts/${postId}/archive`);
+    return true;
+  } catch (err) {
+    console.log(err);
     return false;
   }
-
-  return true;
 }
 
 const PostManageButtons: React.FC<PostManageButtons> = ({ id, published }) => {
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [isPublishing, setIsPublishing] = React.useState(false);
   const [isArchiving, setIsArchiving] = React.useState(false);
-  
+
   const router = useRouter();
 
   const handleDelete = async () => {
@@ -92,21 +89,23 @@ const PostManageButtons: React.FC<PostManageButtons> = ({ id, published }) => {
     } finally {
       setIsArchiving(false);
     }
-  }
+  };
 
   return (
     <div className="flex items-center gap-x-2">
       {}
       {published ? (
-        isArchiving ? 
-        <Icons.spinner/> :
-        <Icons.archive
-          onClick={handleArchive}
-          className="text-blue-500 w-4 h-4 cursor-pointer"
-        />
+        isArchiving ? (
+          <Icons.spinner />
+        ) : (
+          <Icons.archive
+            onClick={handleArchive}
+            className="text-blue-500 w-4 h-4 cursor-pointer"
+          />
+        )
+      ) : isPublishing ? (
+        <Icons.spinner />
       ) : (
-        isPublishing ? 
-        <Icons.spinner/> :
         <Icons.publish
           onClick={handlePublish}
           className="text-blue-500 w-4 h-4 cursor-pointer"

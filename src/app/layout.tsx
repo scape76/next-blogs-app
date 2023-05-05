@@ -1,7 +1,22 @@
 import "./globals.css";
 import { getCurrentUser } from "@/lib/session";
+import { Inter as FontSans } from "next/font/google";
+import localFont from "next/font/local";
 
 import Providers from "@/components/providers";
+import { cn } from "@/lib/utils";
+
+import { Roboto } from "next/font/google";
+
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const fontHeading = localFont({
+  src: "../../assets/fonts/CalSans-SemiBold.woff2",
+  variable: "--font-heading",
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -17,7 +32,13 @@ export default async function RootLayout({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen bg-background font-sans antialiased">
+      <body
+        className={cn(
+          "min-h-screen bg-background font-sans antialiased",
+          fontSans.variable,
+          fontHeading.variable
+        )}
+      >
         <Providers>{children}</Providers>
       </body>
     </html>

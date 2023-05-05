@@ -1,12 +1,9 @@
 import Image from "next/image";
-import { Inter } from "next/font/google";
 import { getCurrentUser } from "@/lib/session";
 
 import hero from "../../public/hero.svg";
 import TechnologyBox from "@/components/technology-box";
 import Header from "@/components/header";
-
-const inter = Inter({ subsets: ["latin"] });
 
 const technologies = [
   {
@@ -94,7 +91,13 @@ export default async function Home() {
     <>
       <Header user={user} />
       <section className="container max-w-3xl mx-auto">
-        <Image src={hero} alt="Hero image" width={250} priority className="bg-white rounded"></Image>
+        <Image
+          src={hero}
+          alt="Hero image"
+          width={250}
+          priority
+          className="bg-white rounded"
+        ></Image>
         <div>
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-[1.1]">
             Hello there,
