@@ -3,7 +3,6 @@ import type { Post } from "@prisma/client";
 import { db } from "@/lib/db";
 import { Content } from "@/types/content.d";
 
-import BlockItem from "@/components/block-item";
 import PostEditor from "@/components/editor";
 import { notFound } from "next/navigation";
 
