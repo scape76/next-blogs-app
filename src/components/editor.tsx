@@ -92,7 +92,7 @@ const PostEditor: React.FC<PostEditor> = ({ post, readOnly }) => {
         autofocus: true,
       });
     }
-  }, [post]);
+  }, [post, readOnly]);
 
   React.useEffect(() => {
     if (typeof window !== "undefined") {
