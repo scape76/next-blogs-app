@@ -43,6 +43,17 @@ const UserAccountNav: React.FC<UserAccountNavProps> = ({ user }) => {
         <DropdownMenuItem asChild>
           <Link href="/profile/settings">Settings</Link>
         </DropdownMenuItem>
+        <DropdownMenuItem
+          className="cursor-pointer text-destructive focus:text-destructive"
+          onSelect={(event) => {
+            event.preventDefault();
+            signOut({
+              callbackUrl: `${window.location.origin}/login`,
+            });
+          }}
+        >
+          Sign out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
