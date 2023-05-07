@@ -24,7 +24,6 @@ async function getPostById(postId: Post["id"], userId: User["id"]) {
   return post;
 }
 
-
 const page = async ({ params }: pageProps) => {
   const user = await getCurrentUser();
 
@@ -46,6 +45,7 @@ const page = async ({ params }: pageProps) => {
         content: post.content,
         published: post.published,
       }}
+      readOnly={false}
     />
   );
 };

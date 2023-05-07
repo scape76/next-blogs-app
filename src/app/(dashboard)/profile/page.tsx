@@ -32,7 +32,7 @@ const page = async ({}) => {
   );
 
   return (
-    <div className="w-full">
+    <div className="w-full px-2 md:px-0">
       <DashboardHeader title="Posts" text="Create and manage your posts">
         <CreatePostButton />
       </DashboardHeader>

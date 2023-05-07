@@ -4,6 +4,7 @@ import { getCurrentUser } from "@/lib/session";
 import hero from "../../public/hero.svg";
 import TechnologyBox from "@/components/technology-box";
 import Header from "@/components/header";
+import * as fs from "fs";
 
 const technologies = [
   {
@@ -99,7 +100,7 @@ export default async function Home() {
           className="bg-white rounded"
         ></Image>
         <div>
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-[1.1]">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-[1.1] mt-4">
             Hello there,
           </h1>
           <p className="font-semibold text-xl text-muted-foreground mt-2">

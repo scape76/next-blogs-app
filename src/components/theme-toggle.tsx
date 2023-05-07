@@ -3,62 +3,85 @@
 import * as React from "react";
 import { Icons } from "@/components/icons";
 import { useTheme } from "next-themes";
-
-import Dropdown from "@/components/dropdown";
+import {
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  DropdownMenu,
+} from "@/components/ui/dropdown-menu";
 
 interface ThemeToggleProps {}
 
 const ThemeToggle: React.FC<ThemeToggleProps> = ({}) => {
   const { theme, setTheme } = useTheme();
-  const [isDropdownVisible, setIsDropdownVisible] =
-    React.useState<boolean>(false);
-
-  const toggleDropdown = () => {
-    setIsDropdownVisible((prev) => !prev);
-  };
 
   const items = [
     {
-      icon: <Icons.moon className="text-foreground" />,
-      content: "Dark",
-      onClick: () => {
-        setTheme("dark");
-        setIsDropdownVisible(false);
-      },
+      Icon: Icons.moon,
+      title: "Dark",
     },
     {
-      icon: <Icons.sun className="text-foreground" />,
-      content: "Light",
-      onClick: () => {
-        setTheme("light");
-        setIsDropdownVisible(false);
-      },
+      Icon: Icons.sun,
+      title: "Light",
     },
     {
-      icon: <Icons.laptop className="text-foreground" />,
-      content: "System",
-      onClick: () => {
-        setTheme("system");
-        setIsDropdownVisible(false);
-      },
+      Icon: Icons.laptop,
+      title: "System",
     },
   ];
 
   return (
-    <div className="relative">
-      {theme === "light" ? (
-        <Icons.sun
-          className="cursor-pointer text-foreground relative"
-          onClick={toggleDropdown}
-        />
-      ) : (
-        <Icons.moon
-          className="cursor-pointer text-foreground relative"
-          onClick={toggleDropdown}
-        />
-      )}
-      <Dropdown items={items} isVisible={isDropdownVisible} />
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        {theme === "light" ? (
+          <Icons.sun className="cursor-pointer text-foreground pointer-events-auto" />
+        ) : (
+          <Icons.moon className="cursor-pointer text-foreground pointer-events-auto" />
+        )}
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        {items.map(({ Icon, title }) => (
+          <>
+            <DropdownMenuItem
+              onClick={() => {
+                setTheme(title.toLowerCase());
+              }}
+            >
+              <Icon />
+              {title}
+            </DropdownMenuItem>
+          </>
+        ))}
+        {/* <DropdownMenuItem>
+          <Icons.moon
+            onClick={() => {
+              setTheme("dark");
+              setIsDropdownVisible(false);
+            }}
+          />
+          Dark
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Icons.moon
+            onClick={() => {
+              setTheme("light");
+              setIsDropdownVisible(false);
+            }}
+          />
+          Light
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Icons.moon
+            onClick={() => {
+              setTheme("system");
+              setIsDropdownVisible(false);
+            }}
+          />
+          System
+        </DropdownMenuItem> */}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 
   // <button className="relative border border-gray-200" onClick={toggleDropdown}>

@@ -4,6 +4,8 @@ import { db } from "@/lib/db";
 import { Content } from "@/types/content.d";
 
 import BlockItem from "@/components/block-item";
+import PostEditor from "@/components/editor";
+import { notFound } from "next/navigation";
 
 interface pageProps {
   params: {
@@ -18,28 +20,41 @@ async function getPostData(id: Post["id"]) {
     },
   });
 
-  const data = Object.assign(new Content(), post?.content);
-  const postData = { title: post?.title, data };
+  // const data = Object.assign(new Content(), post?.content);
+  // const postData = { title: post?.title, data };
 
-  return postData;
+  return post;
 }
 
 const page = async ({ params }: pageProps) => {
-  const postData = await getPostData(params.postId);
+  const post = await getPostData(params.postId);
+
+  if (!post) {
+    return notFound();
+  }
 
   return (
     <div>
-      <h1 className="text-5xl font-bold focus:outline-none text-[#44403c]">
-        {postData.title}
-      </h1>
+      {/* <h1 className="text-5xl font-bold focus:outline-none text-[#44403c]">
+        {post.title}
+      </h1> */}
       <div className="mt-4">
-        {postData.data.blocks?.length ? (
+        <PostEditor
+          post={{
+            id: post.id,
+            title: post.title,
+            content: post.content,
+            published: post.published,
+          }}
+          readOnly={true}
+        />
+        {/* {postData.data.blocks?.length ? (
           postData.data.blocks?.map((block) => (
             <BlockItem key={block.id} block={block} />
           ))
         ) : (
           <p className="text-lg">Nothing to show here...</p>
-        )}
+        )} */}
       </div>
     </div>
   );

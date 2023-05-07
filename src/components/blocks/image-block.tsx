@@ -17,7 +17,7 @@ const ImageBlock: React.FC<ImageBlockProps> = ({ data }) => {
   return (
     <div>
       {data.withBackground ? (
-        <div className="image-tool__image bg-[#cdd1e0] p-[15px]">
+        <div className="image-tool__image bg-accent p-[15px]">
           <img
             src={data.file.url}
             alt={data.caption || "image"}
@@ -29,7 +29,7 @@ const ImageBlock: React.FC<ImageBlockProps> = ({ data }) => {
       )}
       {/* <img src={data.file.url} alt={data.caption || 'image'} /> */}
       {data.caption && (
-        <div className="w-full p-2 border border-gray-400 ">{data.caption}</div>
+        <div className="w-full p-2 border border-border ">{data.caption}</div>
       )}
     </div>
   );

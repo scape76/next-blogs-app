@@ -1,114 +1,157 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Post } from "@prisma/client";
-
 import { Icons } from "@/components/icons";
+import axios from "axios";
+import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import {
-  DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenu,
 } from "@/components/ui/dropdown-menu";
+import { toast } from "@/components/ui/use-toast";
 
-async function deletePost(postId: string) {
-  const response = await fetch(`/api/posts/${postId}`, {
-    method: "DELETE",
-  });
-
-  if (!response?.ok) {
-    // toast({
-    //   title: "Something went wrong.",
-    //   description: "Your post was not deleted. Please try again.",
-    //   variant: "destructive",
-    // })
-    console.log("something went wrong, try again later");
+async function deletePost(postId: Post["id"]) {
+  try {
+    await axios.delete(`/api/posts/${postId}`);
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
   }
-
-  return true;
 }
 
+async function publishPost(postId: Post["id"]) {
+  try {
+    await axios.patch(`/api/posts/${postId}/publish`);
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+}
+
+async function archivePost(postId: Post["id"]) {
+  try {
+    await axios.patch(`/api/posts/${postId}/archive`);
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+}
 interface PostOperationsProps {
-  post: Pick<Post, "id" | "title">;
+  post: Pick<Post, "id" | "published">;
 }
 
-export function PostOperations({ post }: PostOperationsProps) {
+function PostOperations({ post }: PostOperationsProps) {
   const router = useRouter();
-  const [showDeleteAlert, setShowDeleteAlert] = React.useState<boolean>(false);
-  const [isDeleteLoading, setIsDeleteLoading] = React.useState<boolean>(false);
+
+  const handleDelete = async () => {
+    try {
+      const deleted = await deletePost(post.id);
+      if (deleted) {
+        router.refresh();
+      }
+      toast({
+        title: "Success.",
+        description: "Your post was successfully deleted.",
+      });
+    } catch (err) {
+      toast({
+        title: "Something went wrong.",
+        description: "Your post was not deleted. Please, try again later.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handlePublish = async () => {
+    console.log("hello there");
+    try {
+      const published = await publishPost(post.id);
+      console.log(published);
+      if (published) {
+        toast({
+          title: "Success.",
+          description: "Your post was successfully published.",
+        });
+        router.refresh();
+      }
+    } catch (err) {
+      toast({
+        title: "Something went wrong.",
+        description: "Your post was not published. Please, try again later.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleArchive = async () => {
+    try {
+      const archived = await archivePost(post.id);
+      console.log(archived);
+      if (archived) {
+        toast({
+          title: "Success.",
+          description: "Your post was successfully archived.",
+        });
+        router.refresh();
+      }
+    } catch (err) {
+      toast({
+        title: "Something went wrong.",
+        description: "Your post was not archived. Please, try again later.",
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
-    <>
-      <DropdownMenu>
-        <DropdownMenuTrigger className="flex h-8 w-8 items-center justify-center rounded-md border transition-colors hover:bg-slate-50">
-          <Icons.ellipsis className="h-4 w-4" />
-          <span className="sr-only">Open</span>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        <Icons.more className="w-4 h-4 cursor-pointer" />
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent
+        align="end"
+        // className="bg-popover p-2 border rounded border-border"
+      >
+        <Link href={`/editor/${post.id}`}>
           <DropdownMenuItem>
-            <Link href={`/editor/${post.id}`} className="flex w-full">
-              Edit
-            </Link>
+            <Icons.pen className="w-4 h-4" />
+            Edit
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            className="flex cursor-pointer items-center text-red-600 focus:bg-red-50"
-            onSelect={() => setShowDeleteAlert(true)}
-          >
-            Delete
+        </Link>
+        <DropdownMenuSeparator />
+        {post.published ? (
+          <DropdownMenuItem onClick={handleArchive}>
+            <Icons.archive className="w-4 h-4" />
+            Archive
           </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-      <AlertDialog open={showDeleteAlert} onOpenChange={setShowDeleteAlert}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>
-              Are you sure you want to delete this post?
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={async (event) => {
-                event.preventDefault();
-                setIsDeleteLoading(true);
-
-                const deleted = await deletePost(post.id);
-
-                if (deleted) {
-                  setIsDeleteLoading(false);
-                  setShowDeleteAlert(false);
-                  router.refresh();
-                }
-              }}
-              className="bg-red-600 focus:ring-red-600"
-            >
-              {isDeleteLoading ? (
-                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-              ) : (
-                <Icons.trash className="mr-2 h-4 w-4" />
-              )}
-              <span>Delete</span>
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </>
+        ) : (
+          <DropdownMenuItem onClick={handlePublish}>
+            <Icons.publish className="w-4 h-4 " />
+            Publish
+          </DropdownMenuItem>
+        )}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onClick={handleDelete}
+          className="text-destructive focus:text-destructive"
+        >
+          <Icons.trash className="w-4 h-4 " />
+          Delete
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
+
+export default PostOperations;

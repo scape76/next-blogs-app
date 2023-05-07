@@ -21,9 +21,10 @@ type FormData = z.infer<typeof postPatchSchema>;
 
 interface PostEditor {
   post: Pick<Post, "id" | "title" | "content" | "published">;
+  readOnly: boolean;
 }
 
-const PostEditor: React.FC<PostEditor> = ({ post }) => {
+const PostEditor: React.FC<PostEditor> = ({ post, readOnly }) => {
   const {
     register,
     formState: { errors },
@@ -57,9 +58,10 @@ const PostEditor: React.FC<PostEditor> = ({ post }) => {
         onReady() {
           ref.current = editor;
         },
-        placeholder: "Write an amazing story",
+        placeholder: !readOnly && "Write an amazing story",
         inlineToolbar: true,
         data: body.content,
+        readOnly,
         tools: {
           header: Header,
           embed: Embed,
@@ -86,7 +88,6 @@ const PostEditor: React.FC<PostEditor> = ({ post }) => {
               },
             },
           },
-          // image: Image,
         },
         autofocus: true,
       });
@@ -139,31 +140,33 @@ const PostEditor: React.FC<PostEditor> = ({ post }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="max-w-5xl mx-auto mt-4 flex items-center justify-between">
-        <div>
-          <Button variant="ghost" onClick={() => router.back()}>
-            Go back
+      {!readOnly && (
+        <div className="max-w-5xl mx-auto mt-4 flex items-center justify-between">
+          <div>
+            <Button variant="ghost" onClick={() => router.back()}>
+              Go back
+            </Button>
+            <span className="ml-4 ">
+              {post.published ? "Published" : "Draft"}
+            </span>
+          </div>
+          <Button type="submit" isLoading={isSaving}>
+            Save
           </Button>
-          <span className="ml-4 ">
-            {post.published ? "Published" : "Draft"}
-          </span>
         </div>
-        <Button type="submit" isLoading={isSaving}>
-          Save
-        </Button>
-      </div>
-      <div className="prose prose-stone mx-auto px-4 pt-2 md:px-0">
+      )}
+      <div className="prose prose-stone mx-auto px-4 pt-2 md:px-0 dark:prose-invert">
         <TextareaAutosize
           autoFocus
           id="title"
           defaultValue={post.title}
           placeholder="Post title"
-          className="w-full resize-none appearance-none overflow-hidden text-5xl font-bold focus:outline-none"
+          className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
           {...register("title", { minLength: 3, maxLength: 128 })}
           aria-invalid={errors.title ? "true" : "false"}
         />
         {errors.title && (
-          <p role="alert" className="text-xs text-red-600">
+          <p role="alert" className="text-sm text-destructive">
             {errors.title?.message as string}
           </p>
         )}

@@ -3,8 +3,8 @@ import { FC } from "react";
 import { formatDate } from "@/lib/utils";
 
 import Link from "next/link";
-import { PostOperations } from "@/components/post-operations";
-import PostDeleteButton from "./post-manage-icons";
+import PostOperations from "@/components/post-operations";
+// import PostDeleteButton from "./post-manage-icons";
 
 interface PostItem {
   post: Pick<Post, "id" | "title" | "createdAt" | "published">;
@@ -21,8 +21,8 @@ const PostItem: FC<PostItem> = ({ post }) => {
           {formatDate(post.createdAt?.toDateString())}
         </span>
       </div>
-      {/* <PostOperations post={{ id: post.id, title: post.title }} /> */}
-      <PostDeleteButton id={post.id} published={post.published} />
+      <PostOperations post={{ id: post.id, published: post.published }} />
+      {/* <PostDeleteButton id={post.id} published={post.published} /> */}
     </div>
   );
 };

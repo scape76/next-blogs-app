@@ -10,6 +10,8 @@ import {
   Moon,
   Sun,
   Laptop,
+  Pen,
+  User,
   type Icon as LucideIcon,
 } from "lucide-react";
 
@@ -18,7 +20,6 @@ export type Icon = LucideIcon;
 export const Icons = {
   post: FileText,
   settings: Settings,
-  ellipsis: MoreVertical,
   trash: Trash2,
   spinner: Loader2,
   chevronLeft: ChevronLeft,
@@ -27,4 +28,7 @@ export const Icons = {
   moon: Moon,
   sun: Sun,
   laptop: Laptop,
+  more: MoreVertical,
+  pen: Pen,
+  user: User,
 };
