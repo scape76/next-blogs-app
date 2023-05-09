@@ -32,6 +32,8 @@ const Spinner = React.forwardRef<
   />
 ));
 
+Spinner.displayName = "Spinner";
+
 export const Icons = {
   post: FileText,
   settings: Settings,
