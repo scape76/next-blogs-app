@@ -22,11 +22,11 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({}) => {
         {i18n.language === "en" ? "🇬🇧" : "🇺🇦"}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onClick={() => i18n.changeLanguage("uk-UA")}>
-          🇺🇦 <TranslatedText tPath="translation.ukrainian" />
-        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => i18n.changeLanguage("en")}>
           🇬🇧 <TranslatedText tPath="translation.english" />
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => i18n.changeLanguage("uk-UA")}>
+          🇺🇦 <TranslatedText tPath="translation.ukrainian" />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
