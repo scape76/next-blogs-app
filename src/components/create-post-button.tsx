@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
+import TranslatedText from "./translation/translated-text";
 
 import Button from "@/components/ui/Button";
 
@@ -35,7 +36,7 @@ const CreatePostButton: React.FC<CreatePostButton> = ({}) => {
 
   return (
     <Button isLoading={isLoading} onClick={handleCreate} variant="ghost">
-      Create
+      <TranslatedText tPath="buttons.create"/>
     </Button>
   );
 };

@@ -51,9 +51,10 @@ model User {
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @default(now()) @map(name: "updated_at")
 
-  accounts Account[]
-  sessions Session[]
-  Post     Post[]
+  accounts     Account[]
+  sessions     Session[]
+  Post         Post[]
+  collaborator Collaborator[]
 
   @@map(name: "users")
 }
@@ -68,7 +69,28 @@ model Post {
   updatedAt DateTime @default(now()) @map(name: "updated_at")
   authorId  String
 
-  author User @relation(fields: [authorId], references: [id])
+  author       User           @relation(fields: [authorId], references: [id])
+  collaborator Collaborator[]
 
   @@map(name: "posts")
+}
+
+model Collaborator {
+  id         String     @id @default(cuid())
+  permission Permission?
+
+  userId String
+  postId String
+
+  user User @relation(fields: [userId], references: [id])
+  post Post @relation(fields: [postId], references: [id])
+}
+
+model Permission {
+  id   String  @id @default(cuid())
+  edit Boolean @default(true)
+
+  collaboratorId String @unique
+
+  collaborator Collaborator? @relation(fields: [collaboratorId], references: [id])
 }

@@ -1,0 +1,69 @@
+{
+  "home": {
+    "title": "Hello there,",
+    "subtitle": "Here you can create and share your posts.",
+    "technologies": {
+      "title": "Technologies I've used",
+      "next": "App directory, layouts, pages and api routes.",
+      "react": "Server & Client components, react hooks",
+      "database": "Prisma ORM and postgres database deployed on Supabase",
+      "tailwind": "Components styled using Tailwind CSS",
+      "authentication": "Authentication using NextAuth.js with Google provider"
+    }
+  },
+  "header": {
+    "blog": "Blog",
+    "profile": "Profile"
+  },
+  "profile": {
+    "aside-items": {
+      "posts": "Your posts",
+      "settings": "Settings"
+    },
+    "posts": {
+      "header": {
+        "title": "Posts",
+        "subtitle": "Create and manage your posts"
+      }
+    },
+    "settings": {
+      "header": {
+        "title": "Settings",
+        "subtitle": "Manage your website settings"
+      },
+      "theme": "Your theme",
+      "language": "Your language"
+    }
+  },
+  "buttons": {
+    "create": "Create",
+    "edit": "Edit",
+    "archive": "Archive",
+    "delete": "Delete",
+    "save": "Save",
+    "go-back": "Go Back",
+    "login": "Login",
+    "publish": "Publish"
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System"
+  },
+  "user-nav": {
+    "profile": "Profile",
+    "settings": "Settings",
+    "sign-out": "Sign out"
+  },
+  "translation": {
+    "ukrainian": "Ukrainian",
+    "english": "English"
+  },
+  "exceptions": {
+    "404": "Not found"
+  },
+  "post": {
+    "published": "Published",
+    "draft": "Draft"
+  }
+}

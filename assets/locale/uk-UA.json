@@ -1,0 +1,69 @@
+{
+  "home": {
+    "title": "Вітаю,",
+    "subtitle": "Тут ви можете створювати і шерити ваші пости.",
+    "technologies": {
+      "title": "Технології, які я використав",
+      "next": "App директорія, layout, pages та api роути",
+      "react": "Серверні та Клієнтські компоненти, реакт хуки",
+      "database": "Prisma ORM та бд postgres розгорнута на Supabase",
+      "tailwind": "Стайлінґ компонент використовуючи Tailwind CSS",
+      "authentication": "Автентифікація за допомогою NextAuth.js з Google provider"
+    }
+  },
+  "header": {
+    "blog": "Блоґ",
+    "profile": "Профіль"
+  },
+  "profile": {
+    "aside-items": {
+      "posts": "Ваші пости",
+      "settings": "Налаштування"
+    },
+    "posts": {
+      "header": {
+        "title": "Пости",
+        "subtitle": "Створюйте та редагуйте свої пости"
+      }
+    },
+    "settings": {
+      "header": {
+        "title": "Налаштування",
+        "subtitle": "Редагуйте ваші налаштування вебсайту"
+      },
+      "theme": "Ваша тема",
+      "language": "Мова вебсайту"
+    }
+  },
+  "buttons": {
+    "create": "Створити",
+    "edit": "Редагувати",
+    "archive": "Архівувати",
+    "delete": "Видалити",
+    "save": "Зберегти",
+    "go-back": "Назад",
+    "login": "Увійти",
+    "publish": "Опублікувати"
+  },
+  "theme": {
+    "dark": "Темна",
+    "light": "Яскрава",
+    "system": "Системна"
+  },
+  "user-nav": {
+    "profile": "Профіль",
+    "settings": "Налаштування",
+    "sign-out": "Вийти з акаунту"
+  },
+  "translation": {
+    "ukrainian": "Українська",
+    "english": "Англійська"
+  },
+  "exceptions": {
+    "404": "Нічого не знайдено"
+  },
+  "post": {
+    "published": "Опублікований",
+    "draft": "Чернетка"
+  }
+}

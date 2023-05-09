@@ -1,3 +1,5 @@
+import * as React from "react";
+
 import {
   ChevronLeft,
   Settings,
@@ -14,14 +16,27 @@ import {
   User,
   type Icon as LucideIcon,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export type Icon = LucideIcon;
+
+const Spinner = React.forwardRef<
+  React.ComponentRef<typeof Loader2>,
+  React.ComponentPropsWithoutRef<typeof Loader2> & {
+    animate?: boolean;
+  }
+>(({ className, animate = true }, ref) => (
+  <Loader2
+    ref={ref}
+    className={cn("w-4 h-4", { "animate-spin": animate }, className)}
+  />
+));
 
 export const Icons = {
   post: FileText,
   settings: Settings,
   trash: Trash2,
-  spinner: Loader2,
+  spinner: Spinner,
   chevronLeft: ChevronLeft,
   publish: FileUp,
   archive: FileDown,

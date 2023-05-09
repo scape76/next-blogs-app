@@ -2,11 +2,11 @@ import { FC } from "react";
 import { formatDate, sortByDate } from "@/lib/utils";
 import { db } from "@/lib/db";
 
-import Image from "next/image";
 import BlogItem from "@/components/blog-item";
+import TranslatedText from "@/components/translation/translated-text";
 
-const getAllPosts = async () => {
-  const posts = await db.post.findMany();
+const getAllPublishedPosts = async () => {
+  const posts = await db.post.findMany({ where: { published: true } });
 
   const postsWithAuthors = await Promise.all(
     posts.map(async (post) => {
@@ -19,13 +19,15 @@ const getAllPosts = async () => {
 };
 
 const page = async ({}) => {
-  const publishedPosts = (await getAllPosts()).sort((a, b) =>
+  const publishedPosts = (await getAllPublishedPosts()).sort((a, b) =>
     sortByDate(b.createdAt, a.createdAt)
-  ).filter(post => post.published);
+  );
 
   return (
     <div className="container max-w-4xl pt-2 lg:pt-4">
-      <h1 className="text-2xl">Blogs</h1>
+      <h1 className="text-2xl">
+        <TranslatedText tPath={'header.blog'}/>
+      </h1>
       <hr className="border-slate-200 my-4" />
       {publishedPosts.length ? (
         <div className="container max-w-5xl my-6">
@@ -45,7 +47,9 @@ const page = async ({}) => {
           </div>
         </div>
       ) : (
-        <p className="text-lg">No posts found</p>
+        <p className="text-lg">
+          <TranslatedText tPath='exceptions.404'/>
+        </p>
       )}
     </div>
   );

@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { getCurrentUser } from "@/lib/session";
 import { User } from "@prisma/client";
 import { redirect } from "next/navigation";
@@ -6,9 +5,9 @@ import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { sortByDate } from "@/lib/utils";
 
-import CreatePostButton from "@/components/create-post-button";
 import PostItem from "@/components/post-item";
 import DashboardHeader from "@/components/dashboard-header";
+import CreatePostButton from "@/components/create-post-button";
 
 const getPostsByUserId = async (userId: User["id"]) => {
   const posts = await db.post.findMany({
@@ -33,7 +32,10 @@ const page = async ({}) => {
 
   return (
     <div className="w-full px-2 md:px-0">
-      <DashboardHeader title="Posts" text="Create and manage your posts">
+      <DashboardHeader
+        titleTPath="profile.posts.header.title"
+        textTPath="profile.posts.header.subtitle"
+      >
         <CreatePostButton />
       </DashboardHeader>
       <div className="w-full">

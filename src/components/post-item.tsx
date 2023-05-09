@@ -1,18 +1,20 @@
-import { Post } from "@prisma/client";
-import { FC } from "react";
+import * as React from "react";
 import { formatDate } from "@/lib/utils";
+import { Post } from "@prisma/client";
 
 import Link from "next/link";
 import PostOperations from "@/components/post-operations";
-// import PostDeleteButton from "./post-manage-icons";
 
 interface PostItem {
-  post: Pick<Post, "id" | "title" | "createdAt" | "published">;
+  post: Pick<Post, "id" | "title" | "published" | "createdAt">;
 }
 
-const PostItem: FC<PostItem> = ({ post }) => {
+const PostItem: React.FC<PostItem> = ({ post }) => {
   return (
-    <div className="flex items-center justify-between md:px-4 px-2 py-4 border border-gray-200 rounded">
+    <div
+      className="flex items-center justify-between md:px-4 px-2 py-4 border border-gray-200 rounded"
+      key={post.id}
+    >
       <div className="flex flex-col gap-y-2">
         <Link href={`/editor/${post.id}`}>
           <h1 className="font-semibold text-md">{post.title}</h1>

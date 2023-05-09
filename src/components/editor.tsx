@@ -14,6 +14,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import TranslatedText from "./translation/translated-text";
 
 // const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 
@@ -144,14 +145,16 @@ const PostEditor: React.FC<PostEditor> = ({ post, readOnly }) => {
         <div className="max-w-5xl mx-auto mt-4 flex items-center justify-between">
           <div>
             <Button variant="ghost" onClick={() => router.back()}>
-              Go back
+              <TranslatedText tPath="buttons.go-back" />
             </Button>
             <span className="ml-4 ">
-              {post.published ? "Published" : "Draft"}
+              <TranslatedText
+                tPath={`post.${post.published ? "published" : "draft"}`}
+              />
             </span>
           </div>
           <Button type="submit" isLoading={isSaving}>
-            Save
+            <TranslatedText tPath="buttons.save" />
           </Button>
         </div>
       )}

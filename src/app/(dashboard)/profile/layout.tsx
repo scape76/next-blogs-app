@@ -10,12 +10,12 @@ interface layoutProps {
 const asideProps = [
   {
     Icon: Icons.post,
-    title: "Your posts",
+    tPath: "profile.aside-items.posts",
     path: "/profile",
   },
   {
     Icon: Icons.settings,
-    title: "Settings",
+    tPath: "profile.aside-items.settings",
     path: "/profile/settings",
   },
 ];
@@ -27,9 +27,9 @@ const layout: FC<layoutProps> = ({ children }) => {
         {asideProps.map((el) => (
           <AsideItem
             path={el.path}
-            title={el.title}
+            tPath={el.tPath}
             Icon={el.Icon}
-            key={el.title}
+            key={el.tPath}
           />
         ))}
       </aside>

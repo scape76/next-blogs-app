@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenu,
 } from "@/components/ui/dropdown-menu";
+import TranslatedText from "./translation/translated-text";
 
 interface ThemeToggleProps {}
 
@@ -19,15 +20,18 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({}) => {
   const items = [
     {
       Icon: Icons.moon,
-      title: "Dark",
+      theme: "dark",
+      titleTPath: "theme.dark",
     },
     {
       Icon: Icons.sun,
-      title: "Light",
+      theme: "light",
+      titleTPath: "theme.light",
     },
     {
       Icon: Icons.laptop,
-      title: "System",
+      theme: "system",
+      titleTPath: "theme.system",
     },
   ];
 
@@ -40,16 +44,16 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({}) => {
           <Icons.moon className="cursor-pointer text-foreground pointer-events-auto" />
         )}
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        {items.map(({ Icon, title }) => (
+      <DropdownMenuContent>
+        {items.map(({ Icon, theme, titleTPath }) => (
           <>
             <DropdownMenuItem
               onClick={() => {
-                setTheme(title.toLowerCase());
+                setTheme(theme.toLowerCase());
               }}
             >
               <Icon />
-              {title}
+              <TranslatedText tPath={titleTPath} />
             </DropdownMenuItem>
           </>
         ))}

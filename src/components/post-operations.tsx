@@ -16,6 +16,7 @@ import {
   DropdownMenu,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "@/components/ui/use-toast";
+import TranslatedText from "./translation/translated-text";
 
 async function deletePost(postId: Post["id"]) {
   try {
@@ -51,9 +52,12 @@ interface PostOperationsProps {
 }
 
 function PostOperations({ post }: PostOperationsProps) {
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
   const router = useRouter();
 
   const handleDelete = async () => {
+    setIsLoading(true);
     try {
       const deleted = await deletePost(post.id);
       if (deleted) {
@@ -69,11 +73,13 @@ function PostOperations({ post }: PostOperationsProps) {
         description: "Your post was not deleted. Please, try again later.",
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handlePublish = async () => {
-    console.log("hello there");
+    setIsLoading(true);
     try {
       const published = await publishPost(post.id);
       console.log(published);
@@ -90,13 +96,15 @@ function PostOperations({ post }: PostOperationsProps) {
         description: "Your post was not published. Please, try again later.",
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleArchive = async () => {
+    setIsLoading(true);
     try {
       const archived = await archivePost(post.id);
-      console.log(archived);
       if (archived) {
         toast({
           title: "Success.",
@@ -110,8 +118,14 @@ function PostOperations({ post }: PostOperationsProps) {
         description: "Your post was not archived. Please, try again later.",
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  if (isLoading) {
+    return <Icons.spinner />;
+  }
 
   return (
     <DropdownMenu>
@@ -126,19 +140,19 @@ function PostOperations({ post }: PostOperationsProps) {
         <Link href={`/editor/${post.id}`}>
           <DropdownMenuItem>
             <Icons.pen className="w-4 h-4" />
-            Edit
+            <TranslatedText tPath="buttons.edit" />
           </DropdownMenuItem>
         </Link>
         <DropdownMenuSeparator />
         {post.published ? (
           <DropdownMenuItem onClick={handleArchive}>
             <Icons.archive className="w-4 h-4" />
-            Archive
+            <TranslatedText tPath="buttons.archive" />
           </DropdownMenuItem>
         ) : (
           <DropdownMenuItem onClick={handlePublish}>
             <Icons.publish className="w-4 h-4 " />
-            Publish
+            <TranslatedText tPath="buttons.publish" />
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
@@ -147,7 +161,7 @@ function PostOperations({ post }: PostOperationsProps) {
           className="text-destructive focus:text-destructive"
         >
           <Icons.trash className="w-4 h-4 " />
-          Delete
+          <TranslatedText tPath="buttons.delete" />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

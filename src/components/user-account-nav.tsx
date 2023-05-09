@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 
 import Link from "next/link";
@@ -12,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import UserAvatar from "@/components/user-avatar";
+import TranslatedText from "./translation/translated-text";
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
   user: Pick<User, "name" | "image" | "email">;
@@ -23,7 +26,8 @@ const UserAccountNav: React.FC<UserAccountNavProps> = ({ user }) => {
       <DropdownMenuTrigger>
         <UserAvatar />
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+      <DropdownMenuContent>
+      <Link href="/profile">
         <DropdownMenuItem>
           <div className="flex items-center justify-start gap-2 p-2">
             <div className="flex flex-col space-y-1 leading-none">
@@ -36,12 +40,17 @@ const UserAccountNav: React.FC<UserAccountNavProps> = ({ user }) => {
             </div>
           </div>
         </DropdownMenuItem>
+        </Link>
         <DropdownMenuSeparator />
+        {/* <DropdownMenuItem asChild>
+          <Link href="/profile">
+            <TranslatedText tPath="user-nav.profile" />
+          </Link>
+        </DropdownMenuItem> */}
         <DropdownMenuItem asChild>
-          <Link href="/profile">Profile</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/profile/settings">Settings</Link>
+          <Link href="/profile/settings">
+            <TranslatedText tPath="user-nav.settings" />
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer text-destructive focus:text-destructive"
@@ -52,7 +61,7 @@ const UserAccountNav: React.FC<UserAccountNavProps> = ({ user }) => {
             });
           }}
         >
-          Sign out
+          <TranslatedText tPath="user-nav.sign-out" />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

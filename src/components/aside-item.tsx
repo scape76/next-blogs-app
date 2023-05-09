@@ -2,19 +2,22 @@ import { FC } from "react";
 import type { Icon } from "@/components/icons";
 
 import Link from "next/link";
+import TranslatedText from "./translation/translated-text";
 
 interface AsideItemProps {
-  title: string;
+  tPath: string;
   Icon: Icon;
   path: string;
 }
 
-const AsideItem: FC<AsideItemProps> = ({ title, Icon, path }) => {
+const AsideItem: FC<AsideItemProps> = ({ tPath, Icon, path }) => {
   return (
     <Link href={path}>
       <div className="flex items-center p-2 gap-x-2 text-sm rounded cursor-pointer hover:bg-accent">
         <Icon className="w-4 h-4" />
-        <span className="text-sm">{title}</span>
+        <span className="text-md">
+          <TranslatedText tPath={tPath} />
+        </span>
       </div>
     </Link>
   );
