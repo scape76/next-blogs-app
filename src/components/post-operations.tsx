@@ -68,6 +68,7 @@ function PostOperations({ post }: PostOperationsProps) {
       toast({
         title: "Success.",
         description: "Your post was successfully deleted.",
+        variant: "success",
       });
     } catch (err) {
       if (err instanceof axios.AxiosError)
@@ -166,6 +167,7 @@ function PostOperations({ post }: PostOperationsProps) {
                 setIsLoading(true);
                 try {
                   await addCollaborator(post.id, emailValue);
+                  setEmailValue("");
                   toast({
                     title: "Success",
                     description: "Collaborator successfully added",
@@ -182,7 +184,7 @@ function PostOperations({ post }: PostOperationsProps) {
                     });
                   } else {
                     toast({
-                      title: "Something went wrong. asd",
+                      title: "Something went wrong.",
                       description: err.response.data,
                       variant: "destructive",
                     });
@@ -221,6 +223,7 @@ const ManageStateOperations = ({
         toast({
           title: "Success.",
           description: `Your post was successfully ${actionName}.`,
+          variant: "success",
         });
         router.refresh();
       }

@@ -27,13 +27,12 @@ const getCollaboratePostsByUserId = async () => {
           userId: user!.id,
         },
         select: {
+          userId: true,
           permissions: true,
         },
       },
     },
   });
-  console.log(posts);
-
   return posts;
 };
 

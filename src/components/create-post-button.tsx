@@ -3,8 +3,11 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import TranslatedText from "@/components/translation/translated-text";
+import axios from "axios";
 
+import { toast } from "@/components/ui/use-toast";
 import Button from "@/components/ui/Button";
+import { Post } from "@prisma/client";
 
 interface CreatePostButton {}
 
@@ -15,28 +18,35 @@ const CreatePostButton: React.FC<CreatePostButton> = ({}) => {
 
   const handleCreate = async () => {
     setIsLoading(true);
-    const response = await fetch("/api/posts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+    try {
+      const { data } = await axios.post<Pick<Post, "id">>("/api/posts", {
         title: "Untitled Post",
-      }),
-    });
+      });
 
-    if (!response?.ok) {
-      console.log("Something went wrong");
+      setIsLoading(false);
+
+      router.push(`/editor/${data.id}`);
+    } catch (err) {
+      if (err instanceof axios.AxiosError)
+        toast({
+          title: "Something went wrong.",
+          description: err.response?.data,
+          variant: "destructive",
+        });
+      else
+        toast({
+          title: "Something went wrong.",
+          description: "Your post was not created. Please, try again later.",
+          variant: "destructive",
+        });
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
-
-    const post = await response.json();
-
-    router.push(`/editor/${post.id}`);
   };
 
   return (
     <Button isLoading={isLoading} onClick={handleCreate} variant="ghost">
-      <TranslatedText tPath="buttons.create"/>
+      <TranslatedText tPath="buttons.create" />
     </Button>
   );
 };

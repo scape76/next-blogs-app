@@ -5,8 +5,6 @@ import EditorJS from "@editorjs/editorjs";
 import { Post } from "@prisma/client";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
-// import { generateReactHelpers } from "@uploadthing/react";
-// import type { OurFileRouter } from "@/app/api/uploadthing/core";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postPatchSchema } from "@/lib/validations/post";
@@ -15,8 +13,7 @@ import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import TranslatedText from "@/components/translation/translated-text";
-
-// const { useUploadThing } = generateReactHelpers<OurFileRouter>();
+import { toast } from "@/components/ui/use-toast";
 
 type FormData = z.infer<typeof postPatchSchema>;
 
@@ -117,18 +114,26 @@ const PostEditor: React.FC<PostEditor> = ({ post, readOnly }) => {
     try {
       const blocks = await ref.current?.save();
 
-      await fetch(`/api/posts/${post.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: data.title,
-          content: blocks,
-        }),
+      await axios.patch(`/api/posts/${post.id}`, {
+        title: data.title,
+        content: blocks,
       });
     } catch (err) {
-      console.log("Something went wrong");
+      if (Array.isArray(err.response.data)) {
+        toast({
+          title: "Something went wrong.",
+          description: err.response.data
+            .map((err: z.ZodError) => err.message)
+            .join(", "),
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Something went wrong.",
+          description: err.response.data,
+          variant: "destructive",
+        });
+      }
     } finally {
       setIsSaving(false);
       router.refresh();
