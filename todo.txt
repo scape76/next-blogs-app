@@ -1,0 +1,2 @@
+1. Use include method whenever it's possible
+instead of Promise.all when querying db

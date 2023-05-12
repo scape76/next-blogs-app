@@ -1,12 +1,15 @@
 import * as React from "react";
 import { formatDate } from "@/lib/utils";
-import { Post } from "@prisma/client";
+import { Actions, Post, User } from "@prisma/client";
 
 import Link from "next/link";
 import PostOperations from "@/components/post-operations";
 
 interface PostItem {
-  post: Pick<Post, "id" | "title" | "published" | "createdAt">;
+  post: Pick<Post, "id" | "title" | "published" | "updatedAt"> & {
+    authorName?: string | null;
+    permissions?: Actions[] | null;
+  };
 }
 
 const PostItem: React.FC<PostItem> = ({ post }) => {
@@ -20,10 +23,21 @@ const PostItem: React.FC<PostItem> = ({ post }) => {
           <h1 className="font-semibold text-md">{post.title}</h1>
         </Link>
         <span className="text-xs ">
-          {formatDate(post.createdAt?.toDateString())}
+          {formatDate(post.updatedAt?.toDateString())}
+          {post.authorName && (
+            <span>
+              , <span className="font-semibold"> {post.authorName}</span>
+            </span>
+          )}
         </span>
       </div>
-      <PostOperations post={{ id: post.id, published: post.published }} />
+      <PostOperations
+        post={{
+          id: post.id,
+          published: post.published,
+          permissions: post.permissions,
+        }}
+      />
       {/* <PostDeleteButton id={post.id} published={post.published} /> */}
     </div>
   );

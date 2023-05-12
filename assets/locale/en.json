@@ -18,12 +18,19 @@
   "profile": {
     "aside-items": {
       "posts": "Your posts",
-      "settings": "Settings"
+      "settings": "Settings",
+      "collaboration": "Collaboration"
     },
     "posts": {
       "header": {
         "title": "Posts",
         "subtitle": "Create and manage your posts"
+      }
+    },
+    "collaboration": {
+      "header": {
+        "title": "Collaboration",
+        "subtitle": "Here you can collaborate with others"
       }
     },
     "settings": {
@@ -64,6 +71,7 @@
   },
   "post": {
     "published": "Published",
-    "draft": "Draft"
+    "draft": "Draft",
+    "add-collaborator": "Add a collaborator"
   }
 }

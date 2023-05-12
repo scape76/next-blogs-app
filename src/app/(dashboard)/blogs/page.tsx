@@ -20,7 +20,7 @@ const getAllPublishedPosts = async () => {
 
 const page = async ({}) => {
   const publishedPosts = (await getAllPublishedPosts()).sort((a, b) =>
-    sortByDate(b.createdAt, a.createdAt)
+    sortByDate(b.updatedAt, a.updatedAt)
   );
 
   return (

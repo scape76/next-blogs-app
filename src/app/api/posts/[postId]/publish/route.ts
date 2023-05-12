@@ -2,6 +2,7 @@ import * as z from "zod";
 import { routeContextSchema } from "../route";
 import { validateUserHasAccessToPost } from "@/app/api/posts/[postId]/route";
 import { db } from "@/lib/db";
+import { Actions } from "@prisma/client";
 
 export async function PATCH(
   req: Request,
@@ -10,8 +11,12 @@ export async function PATCH(
   try {
     const { params } = routeContextSchema.parse(context);
 
-    if (!(await validateUserHasAccessToPost(params.postId))) {
-      return new Response(null, { status: 403 });
+    if (
+      !(await validateUserHasAccessToPost(params.postId, Actions.MANAGE_STATE))
+    ) {
+      return new Response("You are not allowed to publish this post", {
+        status: 403,
+      });
     }
 
     await db.post.update({

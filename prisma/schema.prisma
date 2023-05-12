@@ -69,28 +69,32 @@ model Post {
   updatedAt DateTime @default(now()) @map(name: "updated_at")
   authorId  String
 
-  author       User           @relation(fields: [authorId], references: [id])
-  collaborator Collaborator[]
+  collaborators Collaborator[]
+
+  author User @relation(fields: [authorId], references: [id])
 
   @@map(name: "posts")
 }
 
+// TODO : rename to PostAction
+
+enum Actions {
+  CREATE
+  EDIT
+  ADD_COLLABORATOR
+  DELETE
+  MANAGE_STATE
+}
+
 model Collaborator {
-  id         String     @id @default(cuid())
-  permission Permission?
+  id          String    @id @default(cuid())
+  permissions Actions[] @default([CREATE, EDIT, ADD_COLLABORATOR])
 
   userId String
   postId String
 
   user User @relation(fields: [userId], references: [id])
-  post Post @relation(fields: [postId], references: [id])
-}
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
-model Permission {
-  id   String  @id @default(cuid())
-  edit Boolean @default(true)
-
-  collaboratorId String @unique
-
-  collaborator Collaborator? @relation(fields: [collaboratorId], references: [id])
+  @@unique([userId, postId])
 }

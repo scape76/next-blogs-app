@@ -59,6 +59,7 @@
     "@types/formidable": "^2.0.5",
     "@types/mime": "^3.0.1",
     "prisma": "^4.12.0",
+    "supabase": "^1.57.4",
     "tailwind-merge": "^1.12.0"
   }
 }

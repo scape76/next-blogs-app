@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import TranslatedText from "./translation/translated-text";
+import TranslatedText from "@/components/translation/translated-text";
 
 import Button from "@/components/ui/Button";
 

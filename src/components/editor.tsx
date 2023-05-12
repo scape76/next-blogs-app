@@ -14,7 +14,7 @@ import TextareaAutosize from "react-textarea-autosize";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import TranslatedText from "./translation/translated-text";
+import TranslatedText from "@/components/translation/translated-text";
 
 // const { useUploadThing } = generateReactHelpers<OurFileRouter>();
 

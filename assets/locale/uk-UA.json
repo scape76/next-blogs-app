@@ -18,12 +18,19 @@
   "profile": {
     "aside-items": {
       "posts": "Ваші пости",
-      "settings": "Налаштування"
+      "settings": "Налаштування",
+      "collaboration": "Колаборація"
     },
     "posts": {
       "header": {
         "title": "Пости",
         "subtitle": "Створюйте та редагуйте свої пости"
+      }
+    },
+    "collaboration": {
+      "header": {
+        "title": "Колаборація",
+        "subtitle": "Тут ви можете колаборувати з іншими"
       }
     },
     "settings": {
@@ -64,6 +71,7 @@
   },
   "post": {
     "published": "Опублікований",
-    "draft": "Чернетка"
+    "draft": "Чернетка",
+    "add-collaborator": "Додати співавтора"
   }
 }

@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenu,
 } from "@/components/ui/dropdown-menu";
-import TranslatedText from "./translation/translated-text";
+import TranslatedText from "@/components/translation/translated-text";
 
 interface ThemeToggleProps {}
 

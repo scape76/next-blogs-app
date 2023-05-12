@@ -14,6 +14,8 @@ import {
   Laptop,
   Pen,
   User,
+  UserPlus,
+  Users,
   type Icon as LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -48,4 +50,6 @@ export const Icons = {
   more: MoreVertical,
   pen: Pen,
   user: User,
+  addUser: UserPlus,
+  group: Users,
 };

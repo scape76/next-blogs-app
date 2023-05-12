@@ -1,5 +1,5 @@
 import * as React from "react";
-import TranslatedText from "./translation/translated-text";
+import TranslatedText from "@/components/translation/translated-text";
 
 interface DashboardHeaderProps {
   titleTPath: string;

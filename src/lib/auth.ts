@@ -1,7 +1,7 @@
 import type { AuthOptions } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
-import { db } from "./db";
+import { db } from "@/lib/db";
 
 const getGoogleCredentials = () => {
   const clientId = process.env.GOOGLE_CLIENT_ID;

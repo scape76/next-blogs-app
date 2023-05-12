@@ -1,11 +1,9 @@
 import * as React from "react";
-import { notFound, redirect } from "next/navigation";
-import type { Post, User } from "@prisma/client";
+import { notFound } from "next/navigation";
+import type { Post } from "@prisma/client";
 
-import { authOptions } from "@/lib/auth";
-import { db } from "@/lib/db";
 import PostEditor from "@/components/editor";
-import { getCurrentUser } from "@/lib/session";
+import { validateUserHasAccessToPost } from "@/app/api/posts/[postId]/route";
 
 interface pageProps {
   params: {
@@ -13,25 +11,8 @@ interface pageProps {
   };
 }
 
-async function getPostById(postId: Post["id"], userId: User["id"]) {
-  const post = await db.post.findFirst({
-    where: {
-      id: postId,
-      authorId: userId,
-    },
-  });
-
-  return post;
-}
-
 const page = async ({ params }: pageProps) => {
-  const user = await getCurrentUser();
-
-  if (!user) {
-    redirect(authOptions?.pages?.signIn || "/login");
-  }
-
-  const post = await getPostById(params.postId, user?.id);
+  const post = await validateUserHasAccessToPost(params.postId);
 
   if (!post) {
     notFound();
