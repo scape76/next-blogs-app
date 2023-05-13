@@ -66,8 +66,5 @@ export const authOptions: AuthOptions = {
 
       return session;
     },
-    async redirect() {
-      return "/";
-    },
   },
 };

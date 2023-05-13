@@ -23,6 +23,8 @@ const CreatePostButton: React.FC<CreatePostButton> = ({}) => {
         title: "Untitled Post",
       });
 
+      console.log(data);
+
       setIsLoading(false);
 
       router.push(`/editor/${data.id}`);

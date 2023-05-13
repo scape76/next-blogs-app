@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/session";
 import { db } from "@/lib/db";
 import { sortByDate } from "@/lib/utils";
@@ -5,23 +6,23 @@ import { sortByDate } from "@/lib/utils";
 import PostItem from "@/components/post-item";
 import DashboardHeader from "@/components/dashboard-header";
 import CreatePostButton from "@/components/create-post-button";
+import { authOptions } from "@/lib/auth";
 
-const getPostsByUserId = async () => {
+const page = async ({}) => {
   const user = await getCurrentUser();
+
+  if (!user) {
+    redirect(authOptions?.pages?.signIn || "/login");
+  }
 
   const posts = await db.post.findMany({
     where: {
-      authorId: user!.id,
+      authorId: user.id,
+    },
+    orderBy: {
+      updatedAt: "desc",
     },
   });
-
-  return posts;
-};
-
-const page = async ({}) => {
-  const posts = (await getPostsByUserId()).sort((a, b) =>
-    sortByDate(b.updatedAt, a.updatedAt)
-  );
 
   return (
     <div className="w-full px-2 md:px-0">

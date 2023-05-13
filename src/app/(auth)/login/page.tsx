@@ -2,6 +2,7 @@
 
 import { FC, useState } from "react";
 import { signIn } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 
 import Button from "@/components/ui/Button";
 
@@ -10,10 +11,14 @@ interface pageProps {}
 const Page: FC<pageProps> = ({}) => {
   const [isLoading, setIsLoading] = useState(false);
 
+  const searchParams = useSearchParams();
+
   const loginWithGoogle = () => {
     setIsLoading(true);
     try {
-      signIn("google");
+      signIn("google", {
+        callbackUrl: searchParams?.get("from") || "/",
+      });
     } catch (err) {
       console.log(err);
     } finally {

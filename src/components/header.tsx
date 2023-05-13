@@ -40,10 +40,10 @@ const Header: FC<HeaderProps> = ({ user }) => {
               </svg>
             </div>
           </Link>
-          <Link className="hover-underline-animation" href="/blogs">
+          <Link href="/blogs">
             <TranslatedText tPath="header.blog" />
           </Link>
-          <Link className="hover-underline-animation" href="/profile">
+          <Link href="/profile">
             <TranslatedText tPath="header.profile" />
           </Link>
         </div>

@@ -4,9 +4,15 @@ import { sortByDate } from "@/lib/utils";
 
 import PostItem from "@/components/post-item";
 import DashboardHeader from "@/components/dashboard-header";
+import { redirect } from "next/navigation";
+import { authOptions } from "@/lib/auth";
 
-const getCollaboratePostsByUserId = async () => {
+const page = async ({}) => {
   const user = await getCurrentUser();
+
+  if (!user) {
+    redirect(authOptions?.pages?.signIn || "/login");
+  }
 
   const posts = await db.post.findMany({
     where: {
@@ -33,13 +39,6 @@ const getCollaboratePostsByUserId = async () => {
       },
     },
   });
-  return posts;
-};
-
-const page = async ({}) => {
-  const posts = (await getCollaboratePostsByUserId()).sort((a, b) =>
-    sortByDate(b.updatedAt, a.updatedAt)
-  );
 
   return (
     <div className="w-full px-2 md:px-0">

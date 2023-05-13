@@ -6,16 +6,15 @@ import BlogItem from "@/components/blog-item";
 import TranslatedText from "@/components/translation/translated-text";
 
 const getAllPublishedPosts = async () => {
-  const posts = await db.post.findMany({ where: { published: true } });
+  const posts = await db.post.findMany({
+    where: { published: true },
+    include: { author: true },
+    orderBy: {
+      updatedAt: "desc",
+    },
+  });
 
-  const postsWithAuthors = await Promise.all(
-    posts.map(async (post) => {
-      const author = await db.user.findFirst({ where: { id: post.authorId } });
-      return { ...post, author };
-    })
-  );
-
-  return postsWithAuthors;
+  return posts;
 };
 
 const page = async ({}) => {
@@ -26,7 +25,7 @@ const page = async ({}) => {
   return (
     <div className="container max-w-4xl pt-2 lg:pt-4">
       <h1 className="text-2xl">
-        <TranslatedText tPath={'header.blog'}/>
+        <TranslatedText tPath={"header.blog"} />
       </h1>
       <hr className="border-slate-200 my-4" />
       {publishedPosts.length ? (
@@ -48,7 +47,7 @@ const page = async ({}) => {
         </div>
       ) : (
         <p className="text-lg">
-          <TranslatedText tPath='exceptions.404'/>
+          <TranslatedText tPath="exceptions.404" />
         </p>
       )}
     </div>
