@@ -1,6 +1,5 @@
 import { getCurrentUser } from "@/lib/session";
 import { db } from "@/lib/db";
-import { sortByDate } from "@/lib/utils";
 
 import PostItem from "@/components/post-item";
 import DashboardHeader from "@/components/dashboard-header";
