@@ -15,6 +15,10 @@
     "blog": "Blog",
     "profile": "Profile"
   },
+  "footer": {
+    "images": "Images by",
+    "thanks": "Huge thanks to"
+  },
   "profile": {
     "aside-items": {
       "posts": "Your posts",

@@ -6,6 +6,7 @@ import TechnologyBox from "@/components/technology-box";
 import Header from "@/components/header";
 import HomeTitle from "@/components/home-title";
 import TranslatedText from "@/components/translation/translated-text";
+import SiteFooter from "@/components/site-footer";
 
 const technologies = [
   {
@@ -92,32 +93,36 @@ export default async function Home() {
   return (
     <>
       <Header user={user} />
-      <section className="container max-w-3xl mx-auto">
-        <Image
-          src={hero}
-          alt="Hero image"
-          width={250}
-          priority
-          className="bg-white rounded"
-        ></Image>
-        <HomeTitle />
-      </section>
-      <hr className="border-accent my-12" />
-      <section className="container max-w-3xl mx-auto">
-        <h1 className="text-2xl text-center sm:text-4xl md:text-5xl font-bold leading-[1.1]">
-          <TranslatedText tPath='home.technologies.title'/>
-        </h1>
-        <div className="flex flex-wrap items-center justify-center gap-6 my-8">
-          {technologies.map((tech) => (
-            <TechnologyBox
-              key={tech.title}
-              title={tech.title}
-              tPath={tech.tPath}
-            >
-              {tech.image}
-            </TechnologyBox>
-          ))}
+      <section className="max-w-5xl mx-auto mt-10">
+        <div className="container">
+          <Image
+            src={hero}
+            alt="Hero image"
+            width={250}
+            priority
+            className="bg-white rounded"
+          ></Image>
+          <HomeTitle />
         </div>
+        <hr className="border-accent my-10" />
+        <div className="container">
+          <h1 className="text-2xl text-center sm:text-4xl md:text-5xl font-bold leading-[1.1]">
+            <TranslatedText tPath="home.technologies.title" />
+          </h1>
+          <div className="flex flex-wrap items-center justify-center gap-6 my-8">
+            {technologies.map((tech) => (
+              <TechnologyBox
+                key={tech.title}
+                title={tech.title}
+                tPath={tech.tPath}
+              >
+                {tech.image}
+              </TechnologyBox>
+            ))}
+          </div>
+        </div>
+        <hr className="border-accent" />
+        <SiteFooter />
       </section>
     </>
   );

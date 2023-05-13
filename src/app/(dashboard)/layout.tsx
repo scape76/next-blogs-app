@@ -9,10 +9,10 @@ interface LayoutProps {
 
 const Layout = async ({ children }: LayoutProps) => {
   const user = await getCurrentUser();
- 
+
   return (
     <>
-      <Header user={user}/>
+      <Header user={user} />
       {children}
     </>
   );

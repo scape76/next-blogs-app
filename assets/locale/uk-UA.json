@@ -15,6 +15,10 @@
     "blog": "Блоґ",
     "profile": "Профіль"
   },
+  "footer": {
+    "images": "Ілюстрації з",
+    "thanks": "Велике спасибі"
+  },
   "profile": {
     "aside-items": {
       "posts": "Ваші пости",
