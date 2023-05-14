@@ -6,10 +6,6 @@ export const postPatchSchema = z.object({
   content: z.any().optional(),
 });
 
-export const postPutSchema = z.object({
-  collaboratorEmail: z.string().email(),
-});
-
 export const postCreateSchema = z.object({
   title: z.string(),
 

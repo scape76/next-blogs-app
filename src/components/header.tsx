@@ -41,7 +41,7 @@ const Header: FC<HeaderProps> = ({ user }) => {
                 </svg>
               </div>
             </Link>
-            <Link href="/blogs">
+            <Link href="/blog">
               <TranslatedText tPath="header.blog" />
             </Link>
             <Link href="/profile">

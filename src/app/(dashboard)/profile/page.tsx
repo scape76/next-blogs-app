@@ -1,12 +1,12 @@
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/session";
 import { db } from "@/lib/db";
-import { sortByDate } from "@/lib/utils";
 
 import PostItem from "@/components/post-item";
 import DashboardHeader from "@/components/dashboard-header";
 import CreatePostButton from "@/components/create-post-button";
 import { authOptions } from "@/lib/auth";
+import { Actions } from "@prisma/client";
 
 const page = async ({}) => {
   const user = await getCurrentUser();
@@ -36,18 +36,13 @@ const page = async ({}) => {
         {posts.map((post) => (
           <PostItem
             key={post.id}
+            isAuthor={true}
             post={{
               id: post.id,
               title: post.title,
               updatedAt: post.updatedAt,
               published: post.published,
-              permissions: [
-                "ADD_COLLABORATOR",
-                "CREATE",
-                "DELETE",
-                "EDIT",
-                "MANAGE_STATE",
-              ],
+              permissions: Object.values(Actions),
             }}
           />
         ))}

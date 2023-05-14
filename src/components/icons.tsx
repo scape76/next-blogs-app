@@ -16,6 +16,7 @@ import {
   User,
   UserPlus,
   Users,
+  ArrowLeft,
   type Icon as LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -52,4 +53,5 @@ export const Icons = {
   user: User,
   addUser: UserPlus,
   group: Users,
+  arrowLeft: ArrowLeft,
 };

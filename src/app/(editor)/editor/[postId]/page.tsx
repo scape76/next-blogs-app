@@ -1,6 +1,6 @@
 import * as React from "react";
 import { notFound } from "next/navigation";
-import type { Post } from "@prisma/client";
+import { Actions, Post } from "@prisma/client";
 
 import PostEditor from "@/components/editor";
 import { validateUserHasAccessToPost } from "@/app/api/posts/[postId]/route";
@@ -12,7 +12,7 @@ interface pageProps {
 }
 
 const page = async ({ params }: pageProps) => {
-  const post = await validateUserHasAccessToPost(params.postId);
+  const post = await validateUserHasAccessToPost(params.postId, Actions.EDIT);
 
   if (!post) {
     notFound();

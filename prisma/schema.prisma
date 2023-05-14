@@ -79,7 +79,6 @@ model Post {
 // TODO : rename to PostAction
 
 enum Actions {
-  CREATE
   EDIT
   ADD_COLLABORATOR
   DELETE
@@ -88,7 +87,7 @@ enum Actions {
 
 model Collaborator {
   id          String    @id @default(cuid())
-  permissions Actions[] @default([CREATE, EDIT, ADD_COLLABORATOR])
+  permissions Actions[] @default([EDIT, ADD_COLLABORATOR])
 
   userId String
   postId String

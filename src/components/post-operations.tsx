@@ -43,7 +43,7 @@ async function addCollaborator(
   postId: Post["id"],
   collaboratorEmail: User["email"]
 ) {
-  return await axios.put(`/api/posts/${postId}`, {
+  return await axios.put(`/api/posts/${postId}/collaborators`, {
     collaboratorEmail,
   });
 }

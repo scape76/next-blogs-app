@@ -4,15 +4,18 @@ import { Actions, Post, User } from "@prisma/client";
 
 import Link from "next/link";
 import PostOperations from "@/components/post-operations";
+import Button from "./ui/Button";
+import { isAuthor } from "@/app/api/posts/[postId]/route";
 
-interface PostItem {
+interface PostItemProps {
   post: Pick<Post, "id" | "title" | "published" | "updatedAt"> & {
     authorName?: string | null;
     permissions?: Actions[] | null;
   };
+  isAuthor?: boolean;
 }
 
-const PostItem: React.FC<PostItem> = ({ post }) => {
+const PostItem = ({ post, isAuthor }: PostItemProps) => {
   return (
     <div
       className="flex items-center justify-between md:px-4 px-2 py-4 border border-gray-200 rounded"
@@ -31,13 +34,20 @@ const PostItem: React.FC<PostItem> = ({ post }) => {
           )}
         </span>
       </div>
-      <PostOperations
-        post={{
-          id: post.id,
-          published: post.published,
-          permissions: post.permissions,
-        }}
-      />
+      <div className="flex items-center gap-x-2">
+        {isAuthor && (
+          <Link href={`/settings/${post.id}`}>
+            <Button variant="ghost">Collaboration settings</Button>
+          </Link>
+        )}
+        <PostOperations
+          post={{
+            id: post.id,
+            published: post.published,
+            permissions: post.permissions,
+          }}
+        />
+      </div>
       {/* <PostDeleteButton id={post.id} published={post.published} /> */}
     </div>
   );
