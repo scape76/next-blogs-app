@@ -15,13 +15,13 @@ import axios from "axios";
 import { toast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 
-interface permissionsToggleProps {
+interface PermissionsToggleProps {
   initialPermissions: Actions[];
   postId: Post["id"];
   collaboratorId: Collaborator["id"];
 }
 
-const permissionsToggle: React.FC<permissionsToggleProps> = ({
+const PermissionsToggle: React.FC<PermissionsToggleProps> = ({
   initialPermissions,
   postId,
   collaboratorId,
@@ -95,4 +95,4 @@ const permissionsToggle: React.FC<permissionsToggleProps> = ({
   );
 };
 
-export default permissionsToggle;
+export default PermissionsToggle;
