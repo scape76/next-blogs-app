@@ -9,9 +9,6 @@ add to a post anyone to work with him as a collaborator.
      Realtime notifications (collabotion request, acceptance) using Pusher
    </li>
   <li>
-     Realtime notifications (collabotion request, acceptance) using Pusher
-   </li>
-  <li>
     Skeleton state
   </li> 
 </ul>
