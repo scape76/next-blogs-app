@@ -20,7 +20,7 @@ const PermissionItem: React.FC<PermissionItemProps> = ({
 }) => {
   return (
     <DropdownMenuItem
-      className="flex items-center gap-x-2"
+      className="flex items-center gap-x-2 flex-1 focus:border focus:border-border"
       onClick={() =>
         setPermissions((prev) => {
           if (isChecked) {
@@ -31,8 +31,15 @@ const PermissionItem: React.FC<PermissionItemProps> = ({
       }
       onSelect={(event: Event) => event.preventDefault()}
     >
-      <input type="checkbox" checked={isChecked} />
-      <span>{action.split("_").join(" ").toLowerCase()}</span>
+      <input
+        id={`input-${action}`}
+        type="checkbox"
+        // className="focus:border focus:border-border"
+        checked={isChecked}
+      />
+      <span>
+        {action.split("_").join(" ").toLowerCase()}
+      </span>
     </DropdownMenuItem>
   );
 };
