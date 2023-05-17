@@ -21,7 +21,7 @@ const layout: React.FC<layoutProps> = ({ children }) => {
       <div className="container prose prose-stone">
         {children}
         <Link href="/blog">
-          <Button variant="ghost" className="text-foreground">
+          <Button variant="ghost" className="text-foreground xl:hidden">
             <Icons.arrowLeft  className="w-4 h-4"/>
             See all posts
           </Button>

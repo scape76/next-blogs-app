@@ -1,11 +1,10 @@
 import * as React from "react";
 import { formatDate } from "@/lib/utils";
-import { Actions, Post, User } from "@prisma/client";
+import { Actions, Post } from "@prisma/client";
 
 import Link from "next/link";
 import PostOperations from "@/components/post-operations";
 import Button from "./ui/Button";
-import { isAuthor } from "@/app/api/posts/[postId]/route";
 
 interface PostItemProps {
   post: Pick<Post, "id" | "title" | "published" | "updatedAt"> & {

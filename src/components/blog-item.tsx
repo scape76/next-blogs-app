@@ -31,7 +31,7 @@ const getImageFromPopsy = (id: string) => {
 
 const BlogItem: FC<BlogItem> = ({ post }) => {
   return (
-    <Link href={`/blogs/${post.id}`}>
+    <Link href={`/blog/${post.id}`}>
       <article className="group relative flex flex-col space-y-2 p-4 ">
         {/* {post.image && (
           <Image
