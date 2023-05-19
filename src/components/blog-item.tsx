@@ -1,8 +1,7 @@
-import { FC } from "react";
 import type { Post } from "@prisma/client";
-import { db } from "@/lib/db";
 import { formatDate } from "@/lib/utils";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -29,24 +28,15 @@ const getImageFromPopsy = (id: string) => {
   return `https://illustrations.popsy.co/gray/${imgUrls[res % 5]}.svg`;
 };
 
-const BlogItem: FC<BlogItem> = ({ post }) => {
+const BlogItem = ({ post }) => {
   return (
     <Link href={`/blog/${post.id}`}>
       <article className="group relative flex flex-col space-y-2 p-4 ">
-        {/* {post.image && (
-          <Image
-            src={post.image}
-            alt={post.title}
-            width={804}
-            height={452}
-            className="rounded-md border border-slate-200 bg-slate-200 transition-colors hover:border-slate-900"
-          />
-        )} */}
         <Image
           src={getImageFromPopsy(post.id)}
           alt={post.title}
-          width={804}
-          height={452}
+          width={362}
+          height={362}
           className="rounded-md border border-slate-200 bg-slate-200 transition-colors group-hover:border-slate-900"
         />
         <h2 className="text-2xl ">{post.title}</h2>
@@ -58,6 +48,19 @@ const BlogItem: FC<BlogItem> = ({ post }) => {
         </div>
       </article>
     </Link>
+  );
+};
+
+BlogItem.Skeleton = function BlogItemSkeletton() {
+  return (
+    <article className="group relative flex flex-col space-y-2 p-4 ">
+      <Skeleton className="w-[362px] h-[362px]" />
+      <Skeleton className="h-6 w-2/5" />
+      <div className="flex justify-between items-center">
+        <Skeleton className="h-4 w-1/5" />
+        <Skeleton className="h-3 w-1/5" />
+      </div>
+    </article>
   );
 };
 

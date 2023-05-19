@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 
 import PostItem from "@/components/post-item";
 import DashboardHeader from "@/components/dashboard-header";
+import DashboradShell from "@/components/shell";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 
@@ -40,7 +41,7 @@ const page = async ({}) => {
   });
 
   return (
-    <div className="w-full px-2 md:px-0">
+    <DashboradShell>
       <DashboardHeader
         titleTPath="profile.collaboration.header.title"
         textTPath="profile.collaboration.header.subtitle"
@@ -60,7 +61,7 @@ const page = async ({}) => {
           />
         ))}
       </div>
-    </div>
+    </DashboradShell>
   );
 };
 

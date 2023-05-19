@@ -76,6 +76,7 @@
   "post": {
     "published": "Published",
     "draft": "Draft",
-    "add-collaborator": "Add a collaborator"
+    "add-collaborator": "Add a collaborator",
+    "collaborators-settings": "Collaborators settings"
   }
 }

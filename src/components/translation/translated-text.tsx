@@ -4,14 +4,14 @@ import * as React from "react";
 
 import { useTranslation } from "react-i18next";
 
-interface TranslatedTextProps {
+interface TranslatedTextProps extends React.HTMLAttributes<HTMLSpanElement> {
   tPath: string;
 }
 
-const TranslatedText: React.FC<TranslatedTextProps> = ({ tPath }) => {
+const TranslatedText: React.FC<TranslatedTextProps> = ({ tPath, ...props }) => {
   const { t } = useTranslation();
 
-  return <>{t(tPath)}</>;
+  return <span {...props}>{t(tPath)}</span>;
 };
 
 export default TranslatedText;

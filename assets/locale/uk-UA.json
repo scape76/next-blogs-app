@@ -76,6 +76,7 @@
   "post": {
     "published": "Опублікований",
     "draft": "Чернетка",
-    "add-collaborator": "Додати співавтора"
+    "add-collaborator": "Додати співавтора",
+    "collaborators-settings": "Налаштування співавторів"
   }
 }

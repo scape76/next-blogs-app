@@ -50,9 +50,10 @@ async function addCollaborator(
 
 interface PostOperationsProps {
   post: Pick<Post, "id" | "published"> & { permissions?: Actions[] | null };
+  isAuthor?: boolean;
 }
 
-function PostOperations({ post }: PostOperationsProps) {
+function PostOperations({ post, isAuthor }: PostOperationsProps) {
   const [showAddCollaboratorAlert, setShowAddCollaboratorAlert] =
     React.useState<boolean>(false);
   const [emailValue, setEmailValue] = React.useState<string>("");
@@ -128,6 +129,17 @@ function PostOperations({ post }: PostOperationsProps) {
                 <Icons.addUser className="w-4 h-4 " />
                 <TranslatedText tPath="post.add-collaborator" />
               </DropdownMenuItem>
+            </>
+          )}
+          {isAuthor && (
+            <>
+              <DropdownMenuSeparator />
+              <Link href={`/settings/${post.id}`}>
+                <DropdownMenuItem>
+                  <Icons.group className="w-4 h-4 " />
+                  <TranslatedText tPath="post.collaborators-settings" />
+                </DropdownMenuItem>
+              </Link>
             </>
           )}
           {post.permissions?.includes(Actions.DELETE) && (
