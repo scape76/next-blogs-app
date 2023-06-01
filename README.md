@@ -10,7 +10,4 @@
   <li>
      Realtime notifications (collaboration request, acceptance) using Pusher
    </li>
-  <li>
-    Skeleton state
-  </li> 
 </ul>
