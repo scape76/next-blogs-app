@@ -13,6 +13,10 @@ interface pageProps {
   };
 }
 
+export const metadata = {
+  title: "Your post collaboration settings",
+};
+
 const page = async ({ params }: pageProps) => {
   const user = await getCurrentUser();
 

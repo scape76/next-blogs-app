@@ -1,6 +1,7 @@
 import type { AuthOptions } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
+// import EmailProvider from "next-auth/providers/email";
 import { db } from "@/lib/db";
 
 const getGoogleCredentials = () => {
@@ -20,6 +21,23 @@ const getGoogleCredentials = () => {
   };
 };
 
+const getEmailCredentials = () => {
+  const emailServer = process.env.EMAIL_SERVER;
+  if (!emailServer) {
+    throw new Error("no client id provided in .env file");
+  }
+
+  const emailFrom = process.env.EMAIL_FROM;
+  if (!emailFrom) {
+    throw new Error("no client secret provided in .env file");
+  }
+
+  return {
+    emailServer,
+    emailFrom,
+  };
+};
+
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(db),
   session: {
@@ -33,6 +51,17 @@ export const authOptions: AuthOptions = {
       clientId: getGoogleCredentials().clientId,
       clientSecret: getGoogleCredentials().clientSecret,
     }),
+    // EmailProvider({
+    //   server: {
+    //     host: process.env.SMTP_HOST,
+    //     port: process.env.SMTP_PORT,
+    //     auth: {
+    //       user: process.env.SMTP_USER,
+    //       pass: process.env.SMTP_PASSWORD,
+    //     },
+    //   },
+    //   from: process.env.EMAIL_FROM,
+    // }),
   ],
   callbacks: {
     async jwt({ token, user }) {

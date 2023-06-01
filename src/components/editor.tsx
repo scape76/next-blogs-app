@@ -5,6 +5,7 @@ import EditorJS from "@editorjs/editorjs";
 import { Post } from "@prisma/client";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
+import "@/styles/editor.css";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { postPatchSchema } from "@/lib/validations/post";
@@ -31,8 +32,10 @@ const PostEditor: React.FC<PostEditor> = ({ post, readOnly }) => {
     resolver: zodResolver(postPatchSchema),
   });
 
-  const [isSaving, setIsSaving] = React.useState(false);
+  const [isSaving, setIsSaving] = React.useState<boolean>(false);
   const [isMounted, setIsMounted] = React.useState<boolean>(false);
+
+  console.log(readOnly);
 
   const ref = React.useRef<EditorJS>();
 
@@ -74,12 +77,33 @@ const PostEditor: React.FC<PostEditor> = ({ post, readOnly }) => {
                     type: file.type,
                   });
 
-                  await axios.put(data.file.uploadUrl, file, {
-                    headers: {
-                      "Content-type": file.type,
-                      "Access-Control-Allow-Origin": "*",
-                    },
-                  });
+                  if (data.file.isDev) {
+                    const _data: Record<string, any> = {
+                      ...data.file.fields,
+                      "Content-Type": file.type,
+                      file,
+                    };
+
+                    const formData = new FormData();
+                    for (const name in _data) {
+                      formData.append(name, _data[name]);
+                    }
+
+                    await fetch(data.file.uploadUrl, {
+                      method: "POST",
+                      body: formData,
+                    });
+                  } else {
+                    console.log('hello there')
+                    await axios.put(data.file.uploadUrl, file, {
+                      headers: {
+                        "Content-type": file.type,
+                        "Access-Control-Allow-Origin": "*",
+                      },
+                    });
+                  }
+
+                  console.log(data);
 
                   return data;
                 },
@@ -172,6 +196,7 @@ const PostEditor: React.FC<PostEditor> = ({ post, readOnly }) => {
           className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
           {...register("title", { minLength: 3, maxLength: 128 })}
           aria-invalid={errors.title ? "true" : "false"}
+          readOnly={readOnly}
         />
         {errors.title && (
           <p role="alert" className="text-sm text-destructive">

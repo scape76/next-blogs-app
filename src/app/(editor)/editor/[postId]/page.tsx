@@ -11,6 +11,11 @@ interface pageProps {
   };
 }
 
+export const metadata = {
+  title: "Post editor",
+  description: "Thanks to editor.js",
+};
+
 const page = async ({ params }: pageProps) => {
   const post = await validateUserHasAccessToPost(params.postId, Actions.EDIT);
 

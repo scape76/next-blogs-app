@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 0 0 100%;
+    --background: 0 0% 100%;
     --foreground: 222.2 47.4% 11.2%;
 
     --muted: 210 40% 96.1%;
@@ -31,14 +31,9 @@
     --destructive: 0 100% 50%;
     --destructive-foreground: 210 40% 98%;
 
-    --success: 117, 90%, 45%;
-    --success-foreground: 210 40% 98%;
-
     --ring: 215 20.2% 65.1%;
 
     --radius: 0.5rem;
-
-    --snake: #000;
   }
 
   .dark {
@@ -69,38 +64,18 @@
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
 
-    --success: 117, 100%, 29%;
-    --success-foreground: 210 40% 98%;
-
     --ring: 216 34% 17%;
 
     --radius: 0.5rem;
-
-    --snake: #fff;
   }
 }
 
-.hover-underline-animation {
-  display: inline-block;
-  position: relative;
-}
-
-.hover-underline-animation::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  transform: scaleX(0);
-  height: 1px;
-  top: 1.8rem;
-  bottom: 0;
-  left: 0;
-  background-color: var(--snake);
-  opacity: 0.7;
-  transform-origin: bottom right;
-  transition: transform 0.25s ease-out;
-}
-
-.hover-underline-animation:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
 }

@@ -17,6 +17,7 @@ const AsideItem: FC<AsideItemProps> = ({ tPath, Icon, path }) => {
         <Icon className="w-4 h-4" />
         <span className="text-md font-semibold">
           <TranslatedText tPath={tPath} />
+          {/* aspdlasdas */}
         </span>
       </div>
     </Link>
