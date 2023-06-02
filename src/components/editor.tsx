@@ -1,20 +1,21 @@
 "use client";
 
 import * as React from "react";
+import axios from "axios";
 import EditorJS from "@editorjs/editorjs";
 import { Post } from "@prisma/client";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import "@/styles/editor.css";
-
-import { zodResolver } from "@hookform/resolvers/zod";
 import { postPatchSchema } from "@/lib/validations/post";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+
 import TextareaAutosize from "react-textarea-autosize";
 import Button from "@/components/ui/Button";
-import { useRouter } from "next/navigation";
-import axios from "axios";
 import TranslatedText from "@/components/translation/translated-text";
 import { toast } from "@/components/ui/use-toast";
+import { Skeleton } from "@/components/ui/skeleton";
 
 type FormData = z.infer<typeof postPatchSchema>;
 
@@ -23,7 +24,7 @@ interface PostEditor {
   readOnly: boolean;
 }
 
-const PostEditor: React.FC<PostEditor> = ({ post, readOnly }) => {
+const PostEditor = ({ post, readOnly }: PostEditor) => {
   const {
     register,
     formState: { errors },
@@ -35,13 +36,9 @@ const PostEditor: React.FC<PostEditor> = ({ post, readOnly }) => {
   const [isSaving, setIsSaving] = React.useState<boolean>(false);
   const [isMounted, setIsMounted] = React.useState<boolean>(false);
 
-  console.log(readOnly);
-
   const ref = React.useRef<EditorJS>();
 
   const router = useRouter();
-
-  // const { startUpload } = useUploadThing("imageUploader");
 
   const initializeEditor = React.useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default;
@@ -49,7 +46,6 @@ const PostEditor: React.FC<PostEditor> = ({ post, readOnly }) => {
     const Embed = (await import("@editorjs/embed")).default;
     const Table = (await import("@editorjs/table")).default;
     const ImageTool = (await import("@editorjs/image")).default;
-    // const Image = (await import("@editorjs/image")).default;
 
     const body = postPatchSchema.parse(post);
 
@@ -94,7 +90,7 @@ const PostEditor: React.FC<PostEditor> = ({ post, readOnly }) => {
                       body: formData,
                     });
                   } else {
-                    console.log('hello there')
+                    console.log("hello there");
                     await axios.put(data.file.uploadUrl, file, {
                       headers: {
                         "Content-type": file.type,
@@ -203,10 +199,19 @@ const PostEditor: React.FC<PostEditor> = ({ post, readOnly }) => {
             {errors.title?.message as string}
           </p>
         )}
-        <div id="editor" className="min-h-[500px]" />
+        <div id="editor" />
       </div>
     </form>
   );
 };
+
+// PostEditor.Skeleton = function PostEditorSkeleton() {
+//   return (
+//     <div className="prose prose-stone mx-auto px-4 pt-2 md:px-0 dark:prose-invert">
+//       <Skeleton className="w-2/4 h-8" />
+//       <Skeleton className="w-full h-4xl" />
+//     </div>
+//   );
+// };
 
 export default PostEditor;

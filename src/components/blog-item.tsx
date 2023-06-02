@@ -53,8 +53,8 @@ const BlogItem = ({ post }) => {
 
 BlogItem.Skeleton = function BlogItemSkeletton() {
   return (
-    <article className="group relative flex flex-col space-y-2 p-4 ">
-      <Skeleton className="w-[362px] h-[362px]" />
+    <article className="group relative flex flex-col space-y-2 p-4 max-w-[362px]">
+      <Skeleton className="w-full aspect-square" />
       <Skeleton className="h-6 w-2/5" />
       <div className="flex justify-between items-center">
         <Skeleton className="h-4 w-1/5" />
