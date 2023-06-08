@@ -1,9 +1,8 @@
-import { FC } from "react";
-import { formatDate, sortByDate } from "@/lib/utils";
+import { sortByDate } from "@/lib/utils";
 import { db } from "@/lib/db";
 
-import BlogItem from "@/components/blog-item";
 import TranslatedText from "@/components/translation/translated-text";
+import BlogFeed from "@/components/blog-feed";
 
 const getAllPublishedPosts = async () => {
   const posts = await db.post.findMany({
@@ -17,7 +16,7 @@ const getAllPublishedPosts = async () => {
   return posts;
 };
 
-const page = async ({}) => {
+const page = async () => {
   const publishedPosts = (await getAllPublishedPosts()).sort((a, b) =>
     sortByDate(b.updatedAt, a.updatedAt)
   );
@@ -28,30 +27,10 @@ const page = async ({}) => {
         <TranslatedText tPath={"header.blog"} />
       </h1>
       <hr className="border-slate-200 my-4" />
-      {publishedPosts.length ? (
-        <div className="container max-w-5xl my-6">
-          <div className="grid gap-10 sm:grid-cols-2">
-            {publishedPosts.map((post) => (
-              <BlogItem
-                key={post.id}
-                post={{
-                  id: post.id,
-                  image: post.image,
-                  title: post.title,
-                  createdAt: post.createdAt,
-                  authorName: post.author?.name || post.author?.email,
-                }}
-              />
-            ))}
-          </div>
-        </div>
-      ) : (
-        <p className="text-lg">
-          <TranslatedText tPath="exceptions.404" />
-        </p>
-      )}
+      <BlogFeed />
     </div>
   );
 };
+
 
 export default page;

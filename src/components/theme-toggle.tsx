@@ -45,12 +45,13 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({}) => {
         )}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        {items.map(({ Icon, theme, titleTPath }) => (
+        {items.map(({ Icon, theme, titleTPath }, i) => (
           <>
             <DropdownMenuItem
               onClick={() => {
                 setTheme(theme.toLowerCase());
               }}
+              key={`i-${titleTPath}`}
             >
               <Icon />
               <TranslatedText tPath={titleTPath} />

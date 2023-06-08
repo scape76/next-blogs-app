@@ -16,7 +16,7 @@ export async function POST(req: Request, res: Response) {
     const json = await req.json();
     const { name, type } = fileUploadSchema.parse(json);
 
-    const filename = `${uuidv4()}-${name}`;
+    const imageId = `${uuidv4()}-${name}`;
 
     let fileParams: any;
     let uploadUrl: string;
@@ -26,42 +26,47 @@ export async function POST(req: Request, res: Response) {
     if (process.env.ENV !== "DEV") {
       fileParams = {
         Bucket: process.env.AWS3_BUCKET_NAME,
-        Key: filename,
+        Key: imageId,
         Expires: 600,
         ContentType: type,
         ACL: "public-read",
       };
 
       uploadUrl = await s3.getSignedUrlPromise("putObject", fileParams);
-      url = process.env.AWS3_URL + filename;
+      url = process.env.AWS3_URL + imageId;
     } else {
       fileParams = {
         Bucket: process.env.AWS3_BUCKET_NAME,
-        Key: filename,
+        Key: imageId,
         Expires: 600,
         ContentType: type,
         ACL: "public-read",
       };
 
       ({ url: uploadUrl, fields } = await createPresignedPost(s3, {
-        Bucket: "blogs-app",
-        Key: filename,
+        Bucket: process.env.BUCKET_NAME || "",
+        Key: imageId,
         Fields: {
-          key: filename,
+          key: imageId,
         },
         Conditions: [
           ["starts-with", "$Content-Type", "image/"],
           ["content-length-range", 0, UPLOAD_MAX_FILE_SIZE],
         ],
       }));
-
-      url = getImageUrl(filename);
+      url = getImageUrl(imageId);
     }
 
     return new Response(
       JSON.stringify({
         success: 1,
-        file: { url, uploadUrl, fields, isDev: process.env.ENV === "DEV" },
+        file: {
+          url,
+          imageId,
+          uploadUrl,
+          fields,
+          isDev: process.env.ENV === "DEV",
+        },
       }),
       { status: 200 }
     );

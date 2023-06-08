@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 
 import PostItem from "@/components/post-item";
 import DashboardHeader from "@/components/dashboard-header";
-import DashboradShell from "@/components/shell";
+import DashboardShell from "@/components/shell";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth";
 
@@ -18,7 +18,7 @@ const page = async ({}) => {
     where: {
       collaborators: {
         some: {
-          userId: user!.id,
+          userId: user.id,
         },
       },
     },
@@ -41,10 +41,10 @@ const page = async ({}) => {
   });
 
   return (
-    <DashboradShell>
+    <DashboardShell>
       <DashboardHeader
         titleTPath="profile.collaboration.header.title"
-        textTPath="profile.collaboration.header.subtitle"
+        subtitleTPath="profile.collaboration.header.subtitle"
       ></DashboardHeader>
       <div className="w-full">
         {posts.map((post) => (
@@ -61,7 +61,7 @@ const page = async ({}) => {
           />
         ))}
       </div>
-    </DashboradShell>
+    </DashboardShell>
   );
 };
 

@@ -3,8 +3,6 @@ import Link from "next/link";
 import type { User } from "next-auth";
 
 import Button from "@/components/ui/Button";
-import Image from "next/image";
-import header from "@/../public/logo.svg";
 import UserAccountNav from "@/components/user-account-nav";
 import TranslatedText from "@/components/translation/translated-text";
 
@@ -22,8 +20,6 @@ const Header: FC<HeaderProps> = ({ user }) => {
               <div className="relative w-6 h-6 z-10 cursor-pointer">
                 {/* <Image fill src={header} alt="logo" className="text-foreground stroke-current"/> */}
                 <svg
-                  // width="36"
-                  // height="41"
                   viewBox="0 0 36 41"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"

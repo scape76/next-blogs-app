@@ -1,6 +1,6 @@
 import * as React from "react";
 import DashboardHeader from "@/components/dashboard-header";
-import DashboradShell from "@/components/shell";
+import DashboardShell from "@/components/shell";
 import CreatePostButton from "@/components/create-post-button";
 import PostItem from "@/components/post-item";
 
@@ -8,10 +8,10 @@ interface loadingProps {}
 
 const loading: React.FC<loadingProps> = ({}) => {
   return (
-    <DashboradShell>
+    <DashboardShell>
       <DashboardHeader
         titleTPath="profile.posts.header.title"
-        textTPath="profile.posts.header.subtitle"
+        subtitleTPath="profile.posts.header.subtitle"
       >
         <CreatePostButton />
       </DashboardHeader>
@@ -22,7 +22,7 @@ const loading: React.FC<loadingProps> = ({}) => {
         <PostItem.Skeleton />
         <PostItem.Skeleton />
       </div>
-    </DashboradShell>
+    </DashboardShell>
   );
 };
 

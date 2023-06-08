@@ -17,6 +17,9 @@ import {
   UserPlus,
   Users,
   ArrowLeft,
+  FileVideo,
+  Check,
+  Edit,
   type Icon as LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -54,4 +57,7 @@ export const Icons = {
   addUser: UserPlus,
   group: Users,
   arrowLeft: ArrowLeft,
+  course: FileVideo,
+  save: Check,
+  edit: Edit,
 };

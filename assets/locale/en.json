@@ -23,6 +23,7 @@
     "aside-items": {
       "posts": "Your posts",
       "settings": "Settings",
+      "courses": "Courses",
       "collaboration": "Collaboration"
     },
     "posts": {
@@ -35,6 +36,12 @@
       "header": {
         "title": "Collaboration",
         "subtitle": "Here you can collaborate with others"
+      }
+    },
+    "courses": {
+      "header": {
+        "title": "Courses",
+        "subtitle": "Create your own courses"
       }
     },
     "settings": {

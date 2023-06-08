@@ -3,7 +3,7 @@ import * as React from "react";
 
 interface DashboradShellProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const DashboradShell: React.FC<DashboradShellProps> = ({
+const DashboardShell: React.FC<DashboradShellProps> = ({
   className,
   children,
   ...props
@@ -15,4 +15,4 @@ const DashboradShell: React.FC<DashboradShellProps> = ({
   );
 };
 
-export default DashboradShell;
+export default DashboardShell;

@@ -3,13 +3,13 @@ import TranslatedText from "@/components/translation/translated-text";
 
 interface DashboardHeaderProps {
   titleTPath: string;
-  textTPath: string;
+  subtitleTPath: string;
   children?: React.ReactNode;
 }
 
 const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   titleTPath,
-  textTPath,
+  subtitleTPath,
   children,
 }) => {
   return (
@@ -19,7 +19,7 @@ const DashboardHeader: React.FC<DashboardHeaderProps> = ({
           <TranslatedText tPath={titleTPath} />
         </h1>
         <span className="text-md">
-          <TranslatedText tPath={textTPath} />
+          <TranslatedText tPath={subtitleTPath} />
         </span>
       </div>
       {children}

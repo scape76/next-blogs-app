@@ -1,7 +1,8 @@
+import 'server-only';
+
 import { getServerSession } from "next-auth";
 
 import { authOptions } from "@/lib/auth";
-import { NextApiRequest, NextApiResponse } from "next";
 
 export async function getSession() {
   return await getServerSession(authOptions);

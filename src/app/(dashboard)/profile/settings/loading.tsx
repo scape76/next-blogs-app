@@ -10,7 +10,7 @@ const loading: React.FC<loadingProps> = ({}) => {
     <DashboradShell>
       <DashboardHeader
         titleTPath="profile.settings.header.title"
-        textTPath="profile.settings.header.subtitle"
+        subtitleTPath="profile.settings.header.subtitle"
       ></DashboardHeader>
       <div className="w-full flex justify-between">
         <Skeleton className="w-1/5 h-4" />

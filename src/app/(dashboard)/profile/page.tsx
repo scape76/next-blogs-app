@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 
 import PostItem from "@/components/post-item";
 import DashboardHeader from "@/components/dashboard-header";
-import DashboradShell from "@/components/shell";
+import DashboardShell from "@/components/shell";
 import CreatePostButton from "@/components/create-post-button";
 import { authOptions } from "@/lib/auth";
 import { Actions } from "@prisma/client";
@@ -26,10 +26,10 @@ const page = async ({}) => {
   });
 
   return (
-    <DashboradShell>
+    <DashboardShell>
       <DashboardHeader
         titleTPath="profile.posts.header.title"
-        textTPath="profile.posts.header.subtitle"
+        subtitleTPath="profile.posts.header.subtitle"
       >
         <CreatePostButton />
       </DashboardHeader>
@@ -48,7 +48,7 @@ const page = async ({}) => {
           />
         ))}
       </div>
-    </DashboradShell>
+    </DashboardShell>
   );
 };
 

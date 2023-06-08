@@ -1,5 +1,4 @@
 import "@/styles/globals.css";
-import { getCurrentUser } from "@/lib/session";
 import { Inter as FontSans } from "next/font/google";
 import localFont from "next/font/local";
 
@@ -26,8 +25,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getCurrentUser();
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body

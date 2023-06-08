@@ -10,7 +10,7 @@ const loading: React.FC<loadingProps> = ({}) => {
     <DashboradShell>
       <DashboardHeader
         titleTPath="profile.collaboration.header.title"
-        textTPath="profile.collaboration.header.subtitle"
+        subtitleTPath="profile.collaboration.header.subtitle"
       ></DashboardHeader>
       <div className="divide-border-200 divide-y rounded-md border">
         <PostItem.Skeleton />

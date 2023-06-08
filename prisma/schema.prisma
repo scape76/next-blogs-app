@@ -56,8 +56,21 @@ model User {
   sessions     Session[]
   Post         Post[]
   collaborator Collaborator[]
+  Course       Course[]
 
   @@map(name: "users")
+}
+
+model Course {
+  id      String  @id @default(cuid())
+  title   String
+  imageId String? @default("")
+
+  authorId String
+
+  author User @relation(fields: [authorId], references: [id])
+
+  @@map(name: "courses")
 }
 
 model Post {

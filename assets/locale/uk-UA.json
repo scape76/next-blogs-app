@@ -21,8 +21,9 @@
   },
   "profile": {
     "aside-items": {
-      "posts": "Ваші пости",
+      "posts": "Пости",
       "settings": "Налаштування",
+      "courses": "Курси",
       "collaboration": "Колаборація"
     },
     "posts": {
@@ -35,6 +36,12 @@
       "header": {
         "title": "Колаборація",
         "subtitle": "Тут ви можете колаборувати з іншими"
+      }
+    },
+    "courses": {
+      "header": {
+        "title": "Курси",
+        "subtitle": "Створюйте ваші власні курси"
       }
     },
     "settings": {

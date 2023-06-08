@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { cache } from 'react';
 import axios from "axios";
 import EditorJS from "@editorjs/editorjs";
 import { Post } from "@prisma/client";
@@ -12,10 +13,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 
 import TextareaAutosize from "react-textarea-autosize";
-import Button from "@/components/ui/Button";
-import TranslatedText from "@/components/translation/translated-text";
 import { toast } from "@/components/ui/use-toast";
-import { Skeleton } from "@/components/ui/skeleton";
+import EditorHeader from "@/components/editor-header";
+import EditorShell from "@/components/editor-shell";
+
+// if a user uploads the same file
+// i want it to return the same link of the
+// image before
 
 type FormData = z.infer<typeof postPatchSchema>;
 
@@ -67,42 +71,43 @@ const PostEditor = ({ post, readOnly }: PostEditor) => {
             class: ImageTool,
             config: {
               uploader: {
-                uploadByFile: async (file) => {
-                  const { data } = await axios.post("/api/s3/upload", {
-                    name: file.name,
-                    type: file.type,
-                  });
+                uploadByFile: (file: File) =>
+                  cache(async (name: string) => {
+                    console.log(name)
+                    const { data } = await axios.post("/api/s3/upload", {
+                      name: file.name,
+                      type: file.type,
+                    });
 
-                  if (data.file.isDev) {
-                    const _data: Record<string, any> = {
-                      ...data.file.fields,
-                      "Content-Type": file.type,
-                      file,
-                    };
+                    if (data.file.isDev) {
+                      const _data: Record<string, any> = {
+                        ...data.file.fields,
+                        "Content-Type": file.type,
+                        file,
+                      };
 
-                    const formData = new FormData();
-                    for (const name in _data) {
-                      formData.append(name, _data[name]);
+                      const formData = new FormData();
+                      for (const name in _data) {
+                        formData.append(name, _data[name]);
+                      }
+
+                      await fetch(data.file.uploadUrl, {
+                        method: "POST",
+                        body: formData,
+                      });
+                    } else {
+                      await axios.put(data.file.uploadUrl, file, {
+                        headers: {
+                          "Content-type": file.type,
+                          "Access-Control-Allow-Origin": "*",
+                        },
+                      });
                     }
 
-                    await fetch(data.file.uploadUrl, {
-                      method: "POST",
-                      body: formData,
-                    });
-                  } else {
-                    console.log("hello there");
-                    await axios.put(data.file.uploadUrl, file, {
-                      headers: {
-                        "Content-type": file.type,
-                        "Access-Control-Allow-Origin": "*",
-                      },
-                    });
-                  }
+                    console.log(data);
 
-                  console.log(data);
-
-                  return data;
-                },
+                    return data;
+                  })(file.name),
               },
             },
           },
@@ -165,43 +170,31 @@ const PostEditor = ({ post, readOnly }: PostEditor) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <>
       {!readOnly && (
-        <div className="max-w-5xl mx-auto mt-4 flex items-center justify-between">
-          <div>
-            <Button variant="ghost" onClick={() => router.back()}>
-              <TranslatedText tPath="buttons.go-back" />
-            </Button>
-            <span className="ml-4 ">
-              <TranslatedText
-                tPath={`post.${post.published ? "published" : "draft"}`}
-              />
-            </span>
-          </div>
-          <Button type="submit" isLoading={isSaving}>
-            <TranslatedText tPath="buttons.save" />
-          </Button>
-        </div>
+        <EditorHeader isSaving={isSaving} isPublished={post.published} />
       )}
-      <div className="prose prose-stone mx-auto px-4 pt-2 md:px-0 dark:prose-invert">
-        <TextareaAutosize
-          autoFocus
-          id="title"
-          defaultValue={post.title}
-          placeholder="Post title"
-          className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
-          {...register("title", { minLength: 3, maxLength: 128 })}
-          aria-invalid={errors.title ? "true" : "false"}
-          readOnly={readOnly}
-        />
-        {errors.title && (
-          <p role="alert" className="text-sm text-destructive">
-            {errors.title?.message as string}
-          </p>
-        )}
-        <div id="editor" />
-      </div>
-    </form>
+      <EditorShell>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextareaAutosize
+            autoFocus
+            id="title"
+            defaultValue={post.title}
+            placeholder="Post title"
+            className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
+            {...register("title", { minLength: 3, maxLength: 128 })}
+            aria-invalid={errors.title ? "true" : "false"}
+            readOnly={readOnly}
+          />
+          {errors.title && (
+            <p role="alert" className="text-sm text-destructive">
+              {errors.title?.message as string}
+            </p>
+          )}
+          <div id="editor" />
+        </form>
+      </EditorShell>
+    </>
   );
 };
 

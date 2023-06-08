@@ -9,9 +9,7 @@ import { toast } from "@/components/ui/use-toast";
 import Button from "@/components/ui/Button";
 import { Post } from "@prisma/client";
 
-interface CreatePostButton {}
-
-const CreatePostButton: React.FC<CreatePostButton> = ({}) => {
+const CreatePostButton = () => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   const router = useRouter();

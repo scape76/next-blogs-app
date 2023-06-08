@@ -87,6 +87,18 @@ const technologies = [
   },
 ];
 
+function TechnologiesShowcase() {
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-6 my-8">
+      {technologies.map((tech) => (
+        <TechnologyBox key={tech.title} title={tech.title} tPath={tech.tPath}>
+          {tech.image}
+        </TechnologyBox>
+      ))}
+    </div>
+  );
+}
+
 export default async function Home() {
   const user = await getCurrentUser();
 
@@ -109,17 +121,7 @@ export default async function Home() {
           <h1 className="text-2xl text-center sm:text-4xl md:text-5xl font-bold leading-[1.1]">
             <TranslatedText tPath="home.technologies.title" />
           </h1>
-          <div className="flex flex-wrap items-center justify-center gap-6 my-8">
-            {technologies.map((tech) => (
-              <TechnologyBox
-                key={tech.title}
-                title={tech.title}
-                tPath={tech.tPath}
-              >
-                {tech.image}
-              </TechnologyBox>
-            ))}
-          </div>
+          <TechnologiesShowcase />
         </div>
         <hr className="border-accent" />
         <SiteFooter />

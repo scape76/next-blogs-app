@@ -19,6 +19,11 @@ const asideProps = [
     path: "/profile/collaboration",
   },
   {
+    Icon: Icons.course,
+    tPath: "profile.aside-items.courses",
+    path: "/profile/courses",
+  },
+  {
     Icon: Icons.settings,
     tPath: "profile.aside-items.settings",
     path: "/profile/settings",
