@@ -1,15 +1,12 @@
 import * as z from "zod";
 import { s3 } from "@/lib/s3";
 import { v4 as uuidv4 } from "uuid";
-import { createPresignedPost } from "@aws-sdk/s3-presigned-post";
-import { getImageUrl } from "@/lib/getImageUrl";
+
 
 const fileUploadSchema = z.object({
   name: z.string(),
   type: z.string(),
 });
-
-const UPLOAD_MAX_FILE_SIZE = 1000000;
 
 export async function POST(req: Request, res: Response) {
   try {
@@ -23,39 +20,18 @@ export async function POST(req: Request, res: Response) {
     let url: string;
     let fields: any;
 
-    if (process.env.ENV !== "DEV") {
-      fileParams = {
-        Bucket: process.env.AWS3_BUCKET_NAME,
-        Key: imageId,
-        Expires: 600,
-        ContentType: type,
-        ACL: "public-read",
-      };
+    fileParams = {
+      Bucket: process.env.AWS3_BUCKET_NAME,
+      Key: imageId,
+      Expires: 600,
+      ContentType: type,
+      ACL: "public-read",
+    };
 
-      uploadUrl = await s3.getSignedUrlPromise("putObject", fileParams);
-      url = process.env.AWS3_URL + imageId;
-    } else {
-      fileParams = {
-        Bucket: process.env.AWS3_BUCKET_NAME,
-        Key: imageId,
-        Expires: 600,
-        ContentType: type,
-        ACL: "public-read",
-      };
+    uploadUrl = await s3.getSignedUrlPromise("putObject", fileParams);
+    url = process.env.AWS3_URL + imageId;
 
-      ({ url: uploadUrl, fields } = await createPresignedPost(s3, {
-        Bucket: process.env.BUCKET_NAME || "",
-        Key: imageId,
-        Fields: {
-          key: imageId,
-        },
-        Conditions: [
-          ["starts-with", "$Content-Type", "image/"],
-          ["content-length-range", 0, UPLOAD_MAX_FILE_SIZE],
-        ],
-      }));
-      url = getImageUrl(imageId);
-    }
+    console.log(url);
 
     return new Response(
       JSON.stringify({
@@ -65,7 +41,6 @@ export async function POST(req: Request, res: Response) {
           imageId,
           uploadUrl,
           fields,
-          isDev: process.env.ENV === "DEV",
         },
       }),
       { status: 200 }

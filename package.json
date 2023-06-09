@@ -6,11 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.342.0",
-    "@aws-sdk/s3-presigned-post": "^3.342.0",
     "@editorjs/checklist": "^1.5.0",
     "@editorjs/editorjs": "^2.26.5",
     "@editorjs/embed": "^2.5.3",
@@ -57,7 +56,6 @@
     "server-only": "^0.0.1",
     "tailwindcss": "3.3.1",
     "typescript": "5.0.4",
-    "uploadthing": "^2.0.1",
     "uuid": "^9.0.0",
     "zod": "^3.21.4"
   },

@@ -14,7 +14,7 @@ export async function GET(req: Request) {
         published: true,
       },
       orderBy: {
-        updatedAt: "asc",
+        updatedAt: "desc",
       },
     });
 
@@ -30,7 +30,7 @@ export async function GET(req: Request) {
         published: true,
       },
       orderBy: {
-        updatedAt: "asc",
+        updatedAt: "desc",
       },
     });
 

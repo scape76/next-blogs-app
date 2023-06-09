@@ -1,3 +1,3 @@
 export function getImageUrl(id: string) {
-  return `http://localhost:9000/blogs-app/${id}`;
+  return "https://next-blogs-bucket.s3.eu-central-1.amazonaws.com/" + id;
 }

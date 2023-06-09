@@ -38,34 +38,24 @@ const CourseEditor: React.FC<CourseEditorProps> = ({ course }) => {
       type: file.type,
     });
 
-    if (data.file.isDev) {
-      const _data: Record<string, any> = {
-        ...data.file.fields,
-        "Content-Type": file.type,
-        file,
-      };
+    console.log(data);
 
-      const formData = new FormData();
-      for (const name in _data) {
-        formData.append(name, _data[name]);
-      }
+    await Promise.all([
+      axios.put(data.file.uploadUrl, file, {
+        headers: {
+          "Content-type": file.type,
+          "Access-Control-Allow-Origin": "*",
+        },
+      }),
+      axios.patch(`/api/courses/${course.id}`, {
+        imageId: data.file.imageId,
+      }),
+    ]);
 
-      await Promise.all([
-        fetch(data.file.uploadUrl, {
-          method: "POST",
-          body: formData,
-        }),
-        axios.patch(`/api/courses/${course.id}`, {
-          imageId: data.file.imageId,
-        }),
-      ]);
+    router.refresh();
 
-
-      router.refresh();
-
-      setFile(null);
-      setIsUploading(false);
-    }
+    setFile(null);
+    setIsUploading(false);
   };
 
   return (
@@ -113,7 +103,7 @@ const CourseEditor: React.FC<CourseEditorProps> = ({ course }) => {
           )}
         </div>
         {course.imageId && (
-          <img alt="image of the course" src={getImageUrl(course.imageId)} />
+          <img alt="image of the course" src={getImageUrl(course.imageId)} className="max-w-[60%]"/>
         )}
         <form onSubmit={uploadImage}>
           <label
