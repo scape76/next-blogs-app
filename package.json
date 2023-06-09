@@ -12,6 +12,7 @@
     "@aws-sdk/client-s3": "^3.342.0",
     "@aws-sdk/s3-presigned-post": "^3.342.0",
     "@editorjs/checklist": "^1.5.0",
+    "@editorjs/code": "^2.8.0",
     "@editorjs/editorjs": "^2.26.5",
     "@editorjs/embed": "^2.5.3",
     "@editorjs/header": "^2.7.0",
@@ -57,7 +58,6 @@
     "server-only": "^0.0.1",
     "tailwindcss": "3.3.1",
     "typescript": "5.0.4",
-    "uploadthing": "^2.0.1",
     "uuid": "^9.0.0",
     "zod": "^3.21.4"
   },

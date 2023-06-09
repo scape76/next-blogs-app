@@ -23,39 +23,26 @@ export async function POST(req: Request, res: Response) {
     let url: string;
     let fields: any;
 
-    if (process.env.ENV !== "DEV") {
-      fileParams = {
-        Bucket: process.env.AWS3_BUCKET_NAME,
-        Key: imageId,
-        Expires: 600,
-        ContentType: type,
-        ACL: "public-read",
-      };
+    fileParams = {
+      Bucket: process.env.BUCKET_NAME,
+      Key: imageId,
+      Expires: 600,
+      ContentType: type,
+      ACL: "public-read",
+    };
 
-      uploadUrl = await s3.getSignedUrlPromise("putObject", fileParams);
-      url = process.env.AWS3_URL + imageId;
-    } else {
-      fileParams = {
-        Bucket: process.env.AWS3_BUCKET_NAME,
-        Key: imageId,
-        Expires: 600,
-        ContentType: type,
-        ACL: "public-read",
-      };
-
-      ({ url: uploadUrl, fields } = await createPresignedPost(s3, {
-        Bucket: process.env.BUCKET_NAME || "",
-        Key: imageId,
-        Fields: {
-          key: imageId,
-        },
-        Conditions: [
-          ["starts-with", "$Content-Type", "image/"],
-          ["content-length-range", 0, UPLOAD_MAX_FILE_SIZE],
-        ],
-      }));
-      url = getImageUrl(imageId);
-    }
+    ({ url: uploadUrl, fields } = await createPresignedPost(s3, {
+      Bucket: process.env.BUCKET_NAME || "",
+      Key: imageId,
+      Fields: {
+        key: imageId,
+      },
+      Conditions: [
+        ["starts-with", "$Content-Type", "image/"],
+        ["content-length-range", 0, UPLOAD_MAX_FILE_SIZE],
+      ],
+    }));
+    url = getImageUrl(imageId);
 
     return new Response(
       JSON.stringify({
@@ -65,7 +52,6 @@ export async function POST(req: Request, res: Response) {
           imageId,
           uploadUrl,
           fields,
-          isDev: process.env.ENV === "DEV",
         },
       }),
       { status: 200 }

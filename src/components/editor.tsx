@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cache } from 'react';
+import { cache } from "react";
 import axios from "axios";
 import EditorJS from "@editorjs/editorjs";
 import { Post } from "@prisma/client";
@@ -50,6 +50,7 @@ const PostEditor = ({ post, readOnly }: PostEditor) => {
     const Embed = (await import("@editorjs/embed")).default;
     const Table = (await import("@editorjs/table")).default;
     const ImageTool = (await import("@editorjs/image")).default;
+    const CodeTool = (await import("@editorjs/code")).default;
 
     const body = postPatchSchema.parse(post);
 
@@ -67,47 +68,35 @@ const PostEditor = ({ post, readOnly }: PostEditor) => {
           header: Header,
           embed: Embed,
           table: Table,
+          code: CodeTool,
           image: {
             class: ImageTool,
             config: {
               uploader: {
-                uploadByFile: (file: File) =>
-                  cache(async (name: string) => {
-                    console.log(name)
-                    const { data } = await axios.post("/api/s3/upload", {
-                      name: file.name,
-                      type: file.type,
-                    });
+                uploadByFile: async (file: File) => {
+                  const { data } = await axios.post("/api/s3/upload", {
+                    name: file.name,
+                    type: file.type,
+                  });
 
-                    if (data.file.isDev) {
-                      const _data: Record<string, any> = {
-                        ...data.file.fields,
-                        "Content-Type": file.type,
-                        file,
-                      };
+                  const _data: Record<string, any> = {
+                    ...data.file.fields,
+                    "Content-Type": file.type,
+                    file,
+                  };
 
-                      const formData = new FormData();
-                      for (const name in _data) {
-                        formData.append(name, _data[name]);
-                      }
+                  const formData = new FormData();
+                  for (const name in _data) {
+                    formData.append(name, _data[name]);
+                  }
 
-                      await fetch(data.file.uploadUrl, {
-                        method: "POST",
-                        body: formData,
-                      });
-                    } else {
-                      await axios.put(data.file.uploadUrl, file, {
-                        headers: {
-                          "Content-type": file.type,
-                          "Access-Control-Allow-Origin": "*",
-                        },
-                      });
-                    }
+                  await fetch(data.file.uploadUrl, {
+                    method: "POST",
+                    body: formData,
+                  });
 
-                    console.log(data);
-
-                    return data;
-                  })(file.name),
+                  return data;
+                },
               },
             },
           },
